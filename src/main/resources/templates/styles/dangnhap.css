@@ -94,7 +94,7 @@ form .row input::placeholder {
   margin-top: 25px;
 }
 form .button input:hover {
-  background: #12876f;
+  background: var(--dark-blue);
 }
 .wrapper form .signup-link {
   text-align: center;
