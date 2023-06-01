@@ -14,6 +14,23 @@ li {
   list-style: none;
 }
 
+:root {
+  --poppins: "Poppins", sans-serif;
+  --lato: "Lato", sans-serif;
+
+  --light: #f9f9f9;
+  --blue: #3c91e6;
+  --light-blue: #cfe8ff;
+  --grey: #eee;
+  --dark-grey: #aaaaaa;
+  --dark: #342e37;
+  --red: #db504a;
+  --yellow: #ffce26;
+  --light-yellow: #fff2c6;
+  --orange: #fd7238;
+  --light-orange: #ffe0d3;
+}
+
 html {
   overflow-x: hidden;
 }
@@ -120,6 +137,7 @@ body {
 }
 #sidebar .side-menu.top li.active a {
   color: var(--blue);
+  background: var(--gray);
 }
 #sidebar.hide .side-menu li a {
   width: calc(48px - (4px * 2));
