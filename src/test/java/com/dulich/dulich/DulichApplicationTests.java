@@ -1,10 +1,10 @@
-package com.weetech.schedule.schedule;
+package com.dulich.dulich;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ScheduleApplicationTests {
+class DulichApplicationTests {
 
 	@Test
 	void contextLoads() {

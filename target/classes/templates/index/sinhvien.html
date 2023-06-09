@@ -1,0 +1,288 @@
+<div id="sinhVien">
+  <head>
+    <link rel="stylesheet" href="../styles/trangchu.css" />
+    <link rel="stylesheet" href="../styles/global.css" />
+  </head>
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1>Sinh Viên</h1>
+      </div>
+    </div>
+    <div class="table-data">
+      <div class="order">
+        <div class="head">
+          <h3>Danh sách sinh viên</h3>
+          <button
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#themSinhVienModal"
+            class="btn-add"
+          >
+            <i class="bx bx-plus" style="font-size: 20px; margin-top: 5px"></i>
+          </button>
+          <!-- Modal add student -->
+          <div
+            class="modal fade"
+            id="themSinhVienModal"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <div
+              class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+            >
+              <div
+                class="modal-content"
+                style="border-radius: 20px; height: 700px"
+              >
+                <div class="modal-header">
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body" style="padding: 3rem">
+                  <form action="" method="post">
+                    <div class="mb-3">
+                      <h4 style="text-align: center; margin-bottom: 20px">
+                        Thêm sinh viên
+                      </h4>
+                      <div style="margin-bottom: 20px">
+                        <label for="" class="form-label">Mã sinh viên</label>
+                        <input
+                          type="text"
+                          name="masv"
+                          class="form-control"
+                          placeholder="Nhập mã sinh viên"
+                          required
+                        />
+                      </div>
+                      <div style="margin-bottom: 20px">
+                        <label for="" class="form-label">Họ và tên</label>
+                        <input
+                          name="ten"
+                          class="form-control"
+                          placeholder="Nhập họ và tên"
+                          required
+                        />
+                      </div>
+                      <div style="margin-bottom: 20px">
+                        <label for="" class="form-label">Lớp</label>
+                        <input
+                          name="ten"
+                          class="form-control"
+                          placeholder="Nhập lớp"
+                          required
+                        />
+                      </div>
+                      <div style="margin-bottom: 20px">
+                        <label for="" class="form-label">Ngày sinh</label>
+                        <input
+                          name="ten"
+                          class="form-control"
+                          placeholder="Nhập ngày sinh"
+                          required
+                          type="date"
+                        />
+                      </div>
+                      <div style="margin-bottom: 20px">
+                        <label for="" class="form-label">Địa chỉ</label>
+                        <input
+                          name="diachi"
+                          class="form-control"
+                          placeholder="Nhập địa chỉ"
+                          required
+                        />
+                      </div>
+                      <div style="margin-bottom: 20px">
+                        <label for="" class="form-label">Email</label>
+                        <input
+                          name="email"
+                          class="form-control"
+                          placeholder="Nhập email"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="modal-footer" style="border: none">
+                      <a
+                        type="button"
+                        class="cus-cancel"
+                        data-bs-dismiss="modal"
+                      >
+                        Hủy
+                      </a>
+                      <button
+                        type="submit"
+                        id="submit"
+                        class="btn-add-cus"
+                        style="
+                          font-size: 18px;
+                          width: 170px;
+                          padding: 0.3em 0.3em;
+                        "
+                      >
+                        Thêm sinh viên
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Mã sinh viên</th>
+              <th>Họ và tên</th>
+              <th>Lớp</th>
+              <th>Ngày sinh</th>
+              <th>Địa chỉ</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-data">
+              <!-- Modal edit student -->
+              <div
+                class="modal fade"
+                id="suaSinhVienModal"
+                data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <div
+                  class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                >
+                  <div
+                    class="modal-content"
+                    style="border-radius: 20px; height: 700px"
+                  >
+                    <div class="modal-header">
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-body" style="padding: 3rem">
+                      <form action="" method="post">
+                        <div class="mb-3">
+                          <h4 style="text-align: center; margin-bottom: 20px">
+                            Sửa sinh viên
+                          </h4>
+                          <div style="margin-bottom: 20px">
+                            <label for="" class="form-label"
+                              >Mã sinh viên</label
+                            >
+                            <input
+                              type="text"
+                              name="masv"
+                              class="form-control"
+                              placeholder="Nhập mã sinh viên"
+                              required
+                            />
+                          </div>
+                          <div style="margin-bottom: 20px">
+                            <label for="" class="form-label">Họ và tên</label>
+                            <input
+                              name="ten"
+                              class="form-control"
+                              placeholder="Nhập họ và tên"
+                              required
+                            />
+                          </div>
+                          <div style="margin-bottom: 20px">
+                            <label for="" class="form-label">Lớp</label>
+                            <input
+                              name="ten"
+                              class="form-control"
+                              placeholder="Nhập lớp"
+                              required
+                            />
+                          </div>
+                          <div style="margin-bottom: 20px">
+                            <label for="" class="form-label">Ngày sinh</label>
+                            <input
+                              name="ten"
+                              class="form-control"
+                              placeholder="Nhập ngày sinh"
+                              required
+                              type="date"
+                            />
+                          </div>
+                          <div style="margin-bottom: 20px">
+                            <label for="" class="form-label">Địa chỉ</label>
+                            <input
+                              name="diachi"
+                              class="form-control"
+                              placeholder="Nhập địa chỉ"
+                              required
+                            />
+                          </div>
+                          <div style="margin-bottom: 20px">
+                            <label for="" class="form-label">Email</label>
+                            <input
+                              name="email"
+                              class="form-control"
+                              placeholder="Nhập email"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="modal-footer" style="border: none">
+                          <a
+                            type="button"
+                            class="cus-cancel"
+                            data-bs-dismiss="modal"
+                          >
+                            Hủy
+                          </a>
+                          <button
+                            type="submit"
+                            id="submit"
+                            class="btn-add-cus"
+                            style="
+                              font-size: 18px;
+                              width: 170px;
+                              padding: 0.3em 0.3em;
+                            "
+                          >
+                            Cập nhật
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <td>N19DCCN014</td>
+              <td>Nguyễn Văn A</td>
+              <td>D19CQCN05-N</td>
+              <td>01/01/2001</td>
+              <td>97 Man Thiện97</td>
+              <td>n19dccn014@student.ptithcm.edu.vn</td>
+              <td>
+                <input
+                  data-bs-toggle="modal"
+                  data-bs-target="#suaSinhVienModal"
+                  type="button"
+                  value="Sửa"
+                  class="btn-add"
+                  style="display: inline-block; width: 80px; height: 40px"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
