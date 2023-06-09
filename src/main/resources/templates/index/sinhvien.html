@@ -1,7 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>Học Viện Công Nghệ Bưu Chính Viễn Thông</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="jquery-3.6.4.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
     <link
       rel="icon"
       type="image/x-icon"
@@ -88,7 +101,7 @@
           </a>
         </li> -->
         <li>
-          <a href="#" class="logout">
+          <a href="/logout" class="logout">
             <i class="bx bxs-log-out-circle"></i>
             <span class="text">Đăng Xuất</span>
           </a>
@@ -180,7 +193,11 @@
                         ></button>
                       </div>
                       <div class="modal-body" style="padding: 3rem">
-                        <form action="" method="post">
+                        <form
+                          th:action="@{/sinhvien}"
+                          th:object="${sinhVienFormModel}"
+                          method="post"
+                        >
                           <div class="mb-3">
                             <h4 style="text-align: center; margin-bottom: 20px">
                               Thêm sinh viên
@@ -190,6 +207,7 @@
                                 >Mã sinh viên</label
                               >
                               <input
+                                th:field="*{maSV}"
                                 type="text"
                                 name="masv"
                                 class="form-control"
@@ -200,6 +218,7 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Họ và tên</label>
                               <input
+                                th:field="*{tenSV}"
                                 name="ten"
                                 class="form-control"
                                 placeholder="Nhập họ và tên"
@@ -208,16 +227,23 @@
                             </div>
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Lớp</label>
-                              <select name="lop" class="form-control" required>
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="opel">Opel</option>
-                                <option value="audi">Audi</option>
+                              <select
+                                th:field="*{maLop}"
+                                name="lop"
+                                class="form-control"
+                                required
+                              >
+                                <option
+                                  th:each="lop : ${listLop}"
+                                  th:value="${lop.maLop}"
+                                  th:text="${lop.maLop} + '-' + ${lop.tenLop}"
+                                ></option>
                               </select>
                             </div>
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Ngày sinh</label>
                               <input
+                                th:field="*{ngaySinh}"
                                 name="ngaysinh"
                                 class="form-control"
                                 placeholder="Nhập ngày sinh"
@@ -228,6 +254,7 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Địa chỉ</label>
                               <input
+                                th:field="*{diaChi}"
                                 name="diachi"
                                 class="form-control"
                                 placeholder="Nhập địa chỉ"
@@ -237,6 +264,7 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Email</label>
                               <input
+                                th:field="*{email}"
                                 name="email"
                                 class="form-control"
                                 placeholder="Nhập email"
@@ -283,154 +311,190 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="row-data">
-                    <!-- Modal edit student -->
-                    <div
-                      class="modal fade"
-                      id="suaSinhVienModal"
-                      data-bs-backdrop="static"
-                      data-bs-keyboard="false"
-                      tabindex="-1"
-                      aria-hidden="true"
-                    >
+                  <th:block th:each="sinhVien : ${listSinhVien}">
+                    <tr class="row-data">
+                      <!-- Modal edit student -->
                       <div
-                        class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                        class="modal fade"
+                        th:attr="id= 'edit' + ${sinhVien.maSV.trim()}"
+                        data-bs-backdrop="static"
+                        data-bs-keyboard="false"
+                        tabindex="-1"
+                        aria-hidden="true"
                       >
                         <div
-                          class="modal-content"
-                          style="border-radius: 20px; height: 700px"
+                          class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
                         >
-                          <div class="modal-header">
-                            <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div class="modal-body" style="padding: 3rem">
-                            <form action="" method="post">
-                              <div class="mb-3">
-                                <h4
-                                  style="
-                                    text-align: center;
-                                    margin-bottom: 20px;
-                                  "
-                                >
-                                  Sửa sinh viên
-                                </h4>
-                                <div style="margin-bottom: 20px">
-                                  <label for="" class="form-label"
-                                    >Mã sinh viên</label
+                          <div
+                            class="modal-content"
+                            style="border-radius: 20px; height: 700px"
+                          >
+                            <div class="modal-header">
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body" style="padding: 3rem">
+                              <form
+                                th:action="@{/sinhvien/update/__${sinhVien.maSV}__}"
+                                th:object="${sinhVienFormModel}"
+                                method="post"
+                              >
+                                <div class="mb-3">
+                                  <h4
+                                    style="
+                                      text-align: center;
+                                      margin-bottom: 20px;
+                                    "
                                   >
-                                  <input
-                                    type="text"
-                                    name="masv"
-                                    class="form-control"
-                                    placeholder="Nhập mã sinh viên"
-                                    required
-                                  />
+                                    Sửa sinh viên
+                                  </h4>
+                                  <div style="margin-bottom: 20px">
+                                    <label for="" class="form-label"
+                                      >Mã sinh viên</label
+                                    >
+                                    <input
+                                      th:name="maSV"
+                                      th:value="${sinhVien.maSV}"
+                                      type="text"
+                                      name="masv"
+                                      class="form-control"
+                                      readonly="true"
+                                      required
+                                    />
+                                  </div>
+                                  <div style="margin-bottom: 20px">
+                                    <label for="" class="form-label"
+                                      >Họ và tên</label
+                                    >
+                                    <input
+                                      th:name="tenSV"
+                                      name="ten"
+                                      class="form-control"
+                                      th:value="${sinhVien.tenSV}"
+                                      required
+                                    />
+                                  </div>
+                                  <div style="margin-bottom: 20px">
+                                    <label for="" class="form-label">Lớp</label>
+                                    <select
+                                      th:name="maLop"
+                                      name="lop"
+                                      class="form-control"
+                                      required
+                                    >
+                                      <option
+                                        th:each="lop : ${listLop}"
+                                        th:value="${lop.maLop}"
+                                        th:selected="${lop.maLop} == ${sinhVien.maLop} ? true : false"
+                                        th:text="${lop.maLop} + '-' + ${lop.tenLop}"
+                                      ></option>
+                                    </select>
+                                  </div>
+                                  <div style="margin-bottom: 20px">
+                                    <label for="" class="form-label"
+                                      >Ngày sinh</label
+                                    >
+                                    <input
+                                      th:name="ngaySinh"
+                                      th:value="${sinhVien.ngaySinh}"
+                                      name="ngaysinh"
+                                      class="form-control"
+                                      placeholder="Nhập ngày sinh"
+                                      required
+                                      type="date"
+                                    />
+                                  </div>
+                                  <div style="margin-bottom: 20px">
+                                    <label for="" class="form-label"
+                                      >Địa chỉ</label
+                                    >
+                                    <input
+                                      th:name="diaChi"
+                                      name="diachi"
+                                      class="form-control"
+                                      th:value="${sinhVien.diaChi}"
+                                      required
+                                    />
+                                  </div>
+                                  <div style="margin-bottom: 20px">
+                                    <label for="" class="form-label"
+                                      >Email</label
+                                    >
+                                    <input
+                                      th:name="email"
+                                      name="email"
+                                      class="form-control"
+                                      th:value="${sinhVien.email}"
+                                      required
+                                    />
+                                  </div>
                                 </div>
-                                <div style="margin-bottom: 20px">
-                                  <label for="" class="form-label"
-                                    >Họ và tên</label
+                                <div class="modal-footer" style="border: none">
+                                  <a
+                                    type="button"
+                                    class="cus-cancel"
+                                    data-bs-dismiss="modal"
                                   >
-                                  <input
-                                    name="ten"
-                                    class="form-control"
-                                    placeholder="Nhập họ và tên"
-                                    required
-                                  />
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                  <label for="" class="form-label">Lớp</label>
-                                  <select
-                                    name="lop"
-                                    class="form-control"
-                                    required
+                                    Hủy
+                                  </a>
+                                  <button
+                                    type="submit"
+                                    id="submit"
+                                    class="btn-add-cus"
+                                    style="
+                                      font-size: 18px;
+                                      width: 170px;
+                                      padding: 0.3em 0.3em;
+                                    "
                                   >
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="opel">Opel</option>
-                                    <option value="audi">Audi</option>
-                                  </select>
+                                    Cập nhật
+                                  </button>
                                 </div>
-                                <div style="margin-bottom: 20px">
-                                  <label for="" class="form-label"
-                                    >Ngày sinh</label
-                                  >
-                                  <input
-                                    name="ngaysinh"
-                                    class="form-control"
-                                    placeholder="Nhập ngày sinh"
-                                    required
-                                    type="date"
-                                  />
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                  <label for="" class="form-label"
-                                    >Địa chỉ</label
-                                  >
-                                  <input
-                                    name="diachi"
-                                    class="form-control"
-                                    placeholder="Nhập địa chỉ"
-                                    required
-                                  />
-                                </div>
-                                <div style="margin-bottom: 20px">
-                                  <label for="" class="form-label">Email</label>
-                                  <input
-                                    name="email"
-                                    class="form-control"
-                                    placeholder="Nhập email"
-                                    required
-                                  />
-                                </div>
-                              </div>
-                              <div class="modal-footer" style="border: none">
-                                <a
-                                  type="button"
-                                  class="cus-cancel"
-                                  data-bs-dismiss="modal"
-                                >
-                                  Hủy
-                                </a>
-                                <button
-                                  type="submit"
-                                  id="submit"
-                                  class="btn-add-cus"
-                                  style="
-                                    font-size: 18px;
-                                    width: 170px;
-                                    padding: 0.3em 0.3em;
-                                  "
-                                >
-                                  Cập nhật
-                                </button>
-                              </div>
-                            </form>
+                              </form>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <td>N19DCCN014</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>D19CQCN05-N</td>
-                    <td>01/01/2001</td>
-                    <td>97 Man Thiện97</td>
-                    <td>n19dccn014@student.ptithcm.edu.vn</td>
-                    <td>
-                      <input
-                        data-bs-toggle="modal"
-                        data-bs-target="#suaSinhVienModal"
-                        type="button"
-                        value="Sửa"
-                        class="btn-add"
-                        style="display: inline-block; width: 80px; height: 40px"
-                      />
-                    </td>
-                  </tr>
+                      <td th:text="${sinhVien.maSV}"></td>
+                      <td th:text="${sinhVien.tenSV}"></td>
+                      <td th:text="${sinhVien.maLop}"></td>
+                      <td th:text="${sinhVien.ngaySinh}"></td>
+                      <td th:text="${sinhVien.diaChi}"></td>
+                      <td th:text="${sinhVien.email}"></td>
+                      <td>
+                        <input
+                          data-bs-toggle="modal"
+                          th:attr="data-bs-target= '#edit' + ${sinhVien.maSV.trim()}"
+                          value="Sửa"
+                          type="button"
+                          class="btn-add"
+                          style="
+                            display: inline-block;
+                            width: 80px;
+                            height: 40px;
+                          "
+                        />
+                      </td>
+                      <td>
+                        <form th:action="@{sinhvien/delete/__${sinhVien.maSV}__}" method="post">
+                          <input
+                            value="Xóa"
+                            type="submit"
+                            class="btn-add"
+                            style="
+                              display: inline-block;
+                              width: 80px;
+                              height: 40px;
+                            "
+                          />
+                        </form>
+                      </td>
+                    </tr>
+                  </th:block>
                 </tbody>
               </table>
             </div>
@@ -441,18 +505,7 @@
       <!-- MAIN -->
     </section>
     <!-- CONTENT -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-      crossorigin="anonymous"
-    ></script>
+
     <script src="../scripts/trangchu.js"></script>
   </body>
 </html>

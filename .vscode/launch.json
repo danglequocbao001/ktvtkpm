@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ScheduleApplication<schedule>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.dulich.dulich.TkbApplication",
+            "projectName": "schedule",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
