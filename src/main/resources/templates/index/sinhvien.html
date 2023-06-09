@@ -465,7 +465,7 @@
                       <td th:text="${sinhVien.ngaySinh}"></td>
                       <td th:text="${sinhVien.diaChi}"></td>
                       <td th:text="${sinhVien.email}"></td>
-                      <td>
+                      <td style="width: 50px">
                         <input
                           data-bs-toggle="modal"
                           th:attr="data-bs-target= '#edit' + ${sinhVien.maSV.trim()}"
@@ -480,7 +480,11 @@
                         />
                       </td>
                       <td>
-                        <form th:action="@{sinhvien/delete/__${sinhVien.maSV}__}" method="post">
+                        <form
+                          th:action="@{sinhvien/delete/__${sinhVien.maSV}__}"
+                          method="post"
+                          style="width: 50px; margin-left: 10px"
+                        >
                           <input
                             value="Xóa"
                             type="submit"
