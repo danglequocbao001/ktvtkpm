@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.dulich.dulich.model.GiangVien;
+import com.dulich.dulich.model.MonHoc;
 
 @Repository
-public interface GiangVienRepository extends JpaRepository<GiangVien, Long> {
-    Optional<GiangVien> findByMaGV(String maGV);
+public interface MonHocRepository extends JpaRepository<MonHoc, Long> {
+    Optional<MonHoc> findByMaMH(String maMH);
 }

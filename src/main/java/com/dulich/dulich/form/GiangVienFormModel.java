@@ -10,5 +10,4 @@ public class GiangVienFormModel {
     private String diaChi;
     private String email;
     private String maKhoa;
-    private String matKhau;
 }
