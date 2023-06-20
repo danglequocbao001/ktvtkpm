@@ -58,8 +58,14 @@
         </li>
         <li>
           <a href="#">
-            <i class="bx bxs-message-dots"></i>
+            <i class="bx bxs-doughnut-chart"></i>
             <span class="text">Học Phần</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bxs-message-dots"></i>
+            <span class="text">Lớp</span>
           </a>
         </li>
         <li>
@@ -480,7 +486,10 @@
                         />
                       </td>
                       <td>
-                        <form th:action="@{sinhvien/delete/__${sinhVien.maSV}__}" method="post">
+                        <form
+                          th:action="@{sinhvien/delete/__${sinhVien.maSV}__}"
+                          method="post"
+                        >
                           <input
                             value="Xóa"
                             type="submit"

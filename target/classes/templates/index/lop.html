@@ -44,7 +44,7 @@
             <span class="text">Sinh Viên</span>
           </a>
         </li>
-        <li class="active">
+        <li>
           <a href="#">
             <i class="bx bxs-shopping-bag-alt"></i>
             <span class="text">Giảng Viên</span>
@@ -62,7 +62,7 @@
             <span class="text">Học Phần</span>
           </a>
         </li>
-        <li>
+        <li class="active">
           <a href="#">
             <i class="bx bxs-message-dots"></i>
             <span class="text">Lớp</span>
@@ -156,13 +156,13 @@
         <main>
           <div class="head-title">
             <div class="left">
-              <h1>Giảng Viên</h1>
+              <h1>Lớp</h1>
             </div>
           </div>
           <div class="table-data">
             <div class="order">
               <div class="head">
-                <h3>Danh sách giảng viên</h3>
+                <h3>Danh sách lớp</h3>
                 <button
                   type="button"
                   data-bs-toggle="modal"
@@ -200,81 +200,49 @@
                       </div>
                       <div class="modal-body" style="padding: 3rem">
                         <form
-                          th:action="@{/giangvien}"
-                          th:object="${giangVienFormModel}"
+                          th:action="@{/sinhvien}"
+                          th:object="${sinhVienFormModel}"
                           method="post"
                         >
                           <div class="mb-3">
                             <h4 style="text-align: center; margin-bottom: 20px">
-                              Thêm giảng viên
+                              Thêm lớp
                             </h4>
                             <div style="margin-bottom: 20px">
-                              <label for="" class="form-label"
-                                >Mã giảng viên</label
-                              >
+                              <label for="" class="form-label">Mã lớp</label>
                               <input
-                                th:field="*{maGV}"
+                                th:field="*{maSV}"
                                 type="text"
-                                name="magv"
+                                name="masv"
                                 class="form-control"
-                                placeholder="Nhập mã giảng viên"
+                                placeholder="Nhập mã lớp"
                                 required
                               />
                             </div>
                             <div style="margin-bottom: 20px">
-                              <label for="" class="form-label">Họ và tên</label>
+                              <label for="" class="form-label">Tên lớp</label>
                               <input
-                                th:field="*{tenGV}"
+                                th:field="*{tenSV}"
                                 name="ten"
                                 class="form-control"
-                                placeholder="Nhập họ và tên"
-                                required
-                              />
-                            </div>
-                            <div style="margin-bottom: 20px">
-                              <label for="" class="form-label">SĐT</label>
-                              <input
-                                th:field="*{sdt}"
-                                name="sdt"
-                                class="form-control"
-                                placeholder="Nhập số điện thoại"
+                                placeholder="Nhập tên lớp"
                                 required
                               />
                             </div>
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Mã khoa</label>
                               <select
-                                th:field="*{maKhoa}"
-                                name="maKhoa"
+                                th:field="*{maLop}"
+                                name="lop"
                                 class="form-control"
                                 required
                               >
                                 <option
-                                  th:each="khoa : ${listKhoa}"
-                                  th:value="${khoa.maKhoa}"
-                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                  th:each="lop : ${listLop}"
+                                  th:value="${lop.maLop}"
+                                  th:text="${lop.maLop} + '-' + ${lop.tenLop}"
                                 ></option>
                               </select>
-                            </div>
-                            <div style="margin-bottom: 20px">
-                              <label for="" class="form-label">Địa chỉ</label>
-                              <input
-                                th:field="*{diaChi}"
-                                name="diachi"
-                                class="form-control"
-                                placeholder="Nhập địa chỉ"
-                                required
-                              />
-                            </div>
-                            <div style="margin-bottom: 20px">
-                              <label for="" class="form-label">Email</label>
-                              <input
-                                th:field="*{email}"
-                                name="email"
-                                class="form-control"
-                                placeholder="Nhập email"
-                                required
-                              />
                             </div>
                           </div>
                           <div class="modal-footer" style="border: none">
@@ -295,7 +263,7 @@
                                 padding: 0.3em 0.3em;
                               "
                             >
-                              Thêm giảng viên
+                              Thêm lớp
                             </button>
                           </div>
                         </form>
@@ -307,12 +275,9 @@
               <table>
                 <thead>
                   <tr>
-                    <th>Mã giảng viên</th>
-                    <th>Họ và tên</th>
-                    <th>SĐT</th>
+                    <th>Mã lớp</th>
+                    <th>Tên lớp</th>
                     <th>Mã khoa</th>
-                    <th>Địa chỉ</th>
-                    <th>Email</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -344,8 +309,8 @@
                             </div>
                             <div class="modal-body" style="padding: 3rem">
                               <form
-                                th:action="@{/giangvien}"
-                                th:object="${giangVienFormModel}"
+                                th:action="@{/sinhvien}"
+                                th:object="${sinhVienFormModel}"
                                 method="post"
                               >
                                 <div class="mb-3">
@@ -355,40 +320,30 @@
                                       margin-bottom: 20px;
                                     "
                                   >
-                                    Sửa giảng viên
+                                    Thêm lớp
                                   </h4>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label"
-                                      >Mã giảng viên</label
+                                      >Mã lớp</label
                                     >
                                     <input
-                                      th:field="*{maGV}"
+                                      th:field="*{maSV}"
                                       type="text"
-                                      name="magv"
+                                      name="masv"
                                       class="form-control"
-                                      placeholder="Nhập mã giảng viên"
+                                      placeholder="Nhập mã lớp"
                                       required
                                     />
                                   </div>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label"
-                                      >Họ và tên</label
+                                      >Tên lớp</label
                                     >
                                     <input
-                                      th:field="*{tenGV}"
+                                      th:field="*{tenSV}"
                                       name="ten"
                                       class="form-control"
-                                      placeholder="Nhập họ và tên"
-                                      required
-                                    />
-                                  </div>
-                                  <div style="margin-bottom: 20px">
-                                    <label for="" class="form-label">SĐT</label>
-                                    <input
-                                      th:field="*{sdt}"
-                                      name="sdt"
-                                      class="form-control"
-                                      placeholder="Nhập số điện thoại"
+                                      placeholder="Nhập tên lớp"
                                       required
                                     />
                                   </div>
@@ -397,41 +352,17 @@
                                       >Mã khoa</label
                                     >
                                     <select
-                                      th:field="*{maKhoa}"
-                                      name="maKhoa"
+                                      th:field="*{maLop}"
+                                      name="lop"
                                       class="form-control"
                                       required
                                     >
                                       <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                        th:each="lop : ${listLop}"
+                                        th:value="${lop.maLop}"
+                                        th:text="${lop.maLop} + '-' + ${lop.tenLop}"
                                       ></option>
                                     </select>
-                                  </div>
-                                  <div style="margin-bottom: 20px">
-                                    <label for="" class="form-label"
-                                      >Địa chỉ</label
-                                    >
-                                    <input
-                                      th:field="*{diaChi}"
-                                      name="diachi"
-                                      class="form-control"
-                                      placeholder="Nhập địa chỉ"
-                                      required
-                                    />
-                                  </div>
-                                  <div style="margin-bottom: 20px">
-                                    <label for="" class="form-label"
-                                      >Email</label
-                                    >
-                                    <input
-                                      th:field="*{email}"
-                                      name="email"
-                                      class="form-control"
-                                      placeholder="Nhập email"
-                                      required
-                                    />
                                   </div>
                                 </div>
                                 <div class="modal-footer" style="border: none">
@@ -452,7 +383,7 @@
                                       padding: 0.3em 0.3em;
                                     "
                                   >
-                                    Sửa giảng viên
+                                    Sửa lớp
                                   </button>
                                 </div>
                               </form>
@@ -463,9 +394,6 @@
                       <td th:text="${sinhVien.maSV}"></td>
                       <td th:text="${sinhVien.tenSV}"></td>
                       <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.ngaySinh}"></td>
-                      <td th:text="${sinhVien.diaChi}"></td>
-                      <td th:text="${sinhVien.email}"></td>
                       <td>
                         <input
                           data-bs-toggle="modal"
