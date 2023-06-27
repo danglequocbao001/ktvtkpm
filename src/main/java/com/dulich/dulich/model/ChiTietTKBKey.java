@@ -7,6 +7,6 @@ public class ChiTietTKBKey implements Serializable {
     private String maLop;
     private String maMH;
     private String maGV;
-    private String maPhong;
+    private int maPhong;
     private String thu;
 }

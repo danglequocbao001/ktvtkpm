@@ -28,7 +28,7 @@
       rel="stylesheet"
     />
     <!-- My CSS -->
-    <link rel="stylesheet" href="../styles/trangchu.css" />
+    <link rel="stylesheet" href="../../styles/trangchu.css" />
   </head>
   <body>
     <!-- CONTENT -->
@@ -36,7 +36,7 @@
       <!-- MAIN -->
       <div id="sinhVien">
         <head>
-          <link rel="stylesheet" href="../styles/trangchu.css" />
+          <link rel="stylesheet" href="../../styles/trangchu.css" />
           <link rel="stylesheet" href="../styles/global.css" />
         </head>
         <main>
@@ -99,8 +99,8 @@
                       </div>
                       <div class="modal-body" style="padding: 3rem">
                         <form
-                          th:action="@{/sinhvien}"
-                          th:object="${sinhVienFormModel}"
+                          th:action="@{__${mactdt}__}"
+                          th:object="${chiTietCTDTModel}"
                           method="post"
                         >
                           <div class="mb-3">
@@ -112,11 +112,13 @@
                                 >Mã chương trình đào tạo</label
                               >
                               <input
-                                th:field="*{maSV}"
+                                th:name="maCTDT"
+                                th:value="${mactdt}"
                                 type="text"
                                 name="masv"
                                 class="form-control"
                                 placeholder="Nhập mã chương trình đào tạo"
+                                readonly="true"
                                 required
                               />
                             </div>
@@ -124,13 +126,18 @@
                               <label for="" class="form-label"
                                 >Mã học phần</label
                               >
-                              <input
-                                th:field="*{tenSV}"
-                                name="ten"
+                              <select
+                                th:field="*{maHP}"
+                                name="mahp"
                                 class="form-control"
-                                placeholder="Nhập mã học phần"
                                 required
-                              />
+                              >
+                                <option
+                                  th:each="hp : ${listHocPhan}"
+                                  th:value="${hp.maHP}"
+                                  th:text="${hp.maHP} + '-' + ${hp.tenHP}"
+                                ></option>
+                              </select>
                             </div>
                           </div>
                           <div class="modal-footer" style="border: none">
@@ -168,14 +175,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <th:block th:each="sinhVien : ${listSinhVien}">
+                  <th:block th:each="chitiet : ${listChiTietCTDT}">
                     <tr class="row-data">
-                      <td th:text="${sinhVien.maSV}"></td>
-                      <td th:text="${sinhVien.tenSV}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
+                      <td th:text="${chitiet.maCTDT}"></td>
+                      <td th:text="${chitiet.maHP}"></td>
                       <td>
                         <form
-                          th:action="@{sinhvien/delete/__${sinhVien.maSV}__}"
+                          th:action="@{__${mactdt}__/__${chitiet.maHP}__}"
                           method="post"
                         >
                           <input

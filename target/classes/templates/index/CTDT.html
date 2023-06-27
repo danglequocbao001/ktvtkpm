@@ -200,8 +200,8 @@
                       </div>
                       <div class="modal-body" style="padding: 3rem">
                         <form
-                          th:action="@{/sinhvien}"
-                          th:object="${sinhVienFormModel}"
+                          th:action="@{/ctdt}"
+                          th:object="${ctdtModel}"
                           method="post"
                         >
                           <div class="mb-3">
@@ -213,7 +213,7 @@
                                 >Mã chương trình đào tạo</label
                               >
                               <input
-                                th:field="*{maSV}"
+                                th:field="*{maCTDT}"
                                 type="text"
                                 name="masv"
                                 class="form-control"
@@ -226,7 +226,7 @@
                                 >Tên chương trình đào tạo</label
                               >
                               <input
-                                th:field="*{tenSV}"
+                                th:field="*{tenCTDT}"
                                 name="ten"
                                 class="form-control"
                                 placeholder="Nhập tên chương trình đào tạo"
@@ -238,10 +238,12 @@
                                 >Số môn học</label
                               >
                               <input
-                                th:field="*{diaChi}"
+                                th:field="*{soMH}"
+                                value="0"
                                 name="diachi"
                                 class="form-control"
                                 placeholder="Nhập số môn học"
+                                readonly="true"
                                 required
                               />
                             </div>
@@ -282,12 +284,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <th:block th:each="sinhVien : ${listSinhVien}">
+                  <th:block th:each="ctdt : ${listCTDT}">
                     <tr class="row-data">
                       <!-- Modal edit student -->
                       <div
                         class="modal fade"
-                        th:attr="id= 'edit' + ${sinhVien.maSV.trim()}"
+                        th:attr="id= 'edit' + ${ctdt.maCTDT.trim()}"
                         data-bs-backdrop="static"
                         data-bs-keyboard="false"
                         tabindex="-1"
@@ -310,8 +312,8 @@
                             </div>
                             <div class="modal-body" style="padding: 3rem">
                               <form
-                                th:action="@{/sinhvien}"
-                                th:object="${sinhVienFormModel}"
+                                th:action="@{/ctdt/update/__${ctdt.maCTDT}__}"
+                                th:object="${ctdtModel}"
                                 method="post"
                               >
                                 <div class="mb-3">
@@ -328,11 +330,13 @@
                                       >Mã chương trình đào tạo</label
                                     >
                                     <input
-                                      th:field="*{maSV}"
+                                      th:name="maCTDT"
+                                      th:value="${ctdt.maCTDT}"
                                       type="text"
                                       name="masv"
                                       class="form-control"
                                       placeholder="Nhập mã chương trình đào tạo"
+                                      readonly="true"
                                       required
                                     />
                                   </div>
@@ -341,7 +345,8 @@
                                       >Tên chương trình đào tạo</label
                                     >
                                     <input
-                                      th:field="*{tenSV}"
+                                      th:name="tenCTDT"
+                                      th:value="${ctdt.tenCTDT}"
                                       name="ten"
                                       class="form-control"
                                       placeholder="Nhập tên chương trình đào tạo"
@@ -353,10 +358,12 @@
                                       >Số môn học</label
                                     >
                                     <input
-                                      th:field="*{diaChi}"
+                                      th:name="soMH"
+                                      th:value="${ctdt.soMH}"
                                       name="diachi"
                                       class="form-control"
                                       placeholder="Nhập số môn học"
+                                      readonly="true"
                                       required
                                     />
                                   </div>
@@ -387,13 +394,13 @@
                           </div>
                         </div>
                       </div>
-                      <td th:text="${sinhVien.maSV}"></td>
-                      <td th:text="${sinhVien.tenSV}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
+                      <td th:text="${ctdt.maCTDT}"></td>
+                      <td th:text="${ctdt.tenCTDT}"></td>
+                      <td th:text="${ctdt.soMH}"></td>
                       <td>
                         <input
                           data-bs-toggle="modal"
-                          th:attr="data-bs-target= '#edit' + ${sinhVien.maSV.trim()}"
+                          th:attr="data-bs-target= '#edit' + ${ctdt.maCTDT.trim()}"
                           value="Sửa"
                           type="button"
                           class="btn-add"
@@ -405,8 +412,8 @@
                         />
                       </td>
                       <td>
-                        <input
-                          value="Chi tiết"
+                        <a
+                          th:href="@{/ctdt/detail/__${ctdt.maCTDT}__}"
                           type="button"
                           class="btn-add"
                           style="
@@ -414,11 +421,11 @@
                             width: 80px;
                             height: 40px;
                           "
-                        />
+                        >Chi tiết</a>
                       </td>
                       <td>
                         <form
-                          th:action="@{sinhvien/delete/__${sinhVien.maSV}__}"
+                          th:action="@{ctdt/delete/__${ctdt.maCTDT}__}"
                           method="post"
                         >
                           <input

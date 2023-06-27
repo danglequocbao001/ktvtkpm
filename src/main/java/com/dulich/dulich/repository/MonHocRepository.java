@@ -10,4 +10,5 @@ import com.dulich.dulich.model.MonHoc;
 @Repository
 public interface MonHocRepository extends JpaRepository<MonHoc, Long> {
     Optional<MonHoc> findByMaMH(String maMH);
+    Long countByMaHP(String maHP);
 }

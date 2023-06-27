@@ -99,8 +99,8 @@
                       </div>
                       <div class="modal-body" style="padding: 3rem">
                         <form
-                          th:action="@{/sinhvien}"
-                          th:object="${sinhVienFormModel}"
+                          th:action="@{/chitiettkb}"
+                          th:object="${chiTietTKBModel}"
                           method="post"
                         >
                           <div class="mb-3">
@@ -112,30 +112,30 @@
                                 >Mã thời khóa biểu</label
                               >
                               <select
-                                th:field="*{maKhoa}"
+                                th:field="*{maTKB}"
                                 name="maKhoa"
                                 class="form-control"
                                 required
                               >
                                 <option
-                                  th:each="khoa : ${listKhoa}"
-                                  th:value="${khoa.maKhoa}"
-                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                  th:each="tkb : ${listTKB}"
+                                  th:value="${tkb.maTKB}"
+                                  th:text="${tkb.maTKB} + ' ' + ${tkb.nienKhoa} + ' ' + ${tkb.hocKy}"
                                 ></option>
                               </select>
                             </div>
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Mã lớp</label>
                               <select
-                                th:field="*{maKhoa}"
+                                th:field="*{maLop}"
                                 name="maKhoa"
                                 class="form-control"
                                 required
                               >
                                 <option
-                                  th:each="khoa : ${listKhoa}"
-                                  th:value="${khoa.maKhoa}"
-                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                  th:each="lop : ${listLop}"
+                                  th:value="${lop.maLop}"
+                                  th:text="${lop.maLop} + '-' + ${lop.tenLop}"
                                 ></option>
                               </select>
                             </div>
@@ -144,15 +144,15 @@
                                 >Mã môn học</label
                               >
                               <select
-                                th:field="*{maKhoa}"
+                                th:field="*{maMH}"
                                 name="maKhoa"
                                 class="form-control"
                                 required
                               >
                                 <option
-                                  th:each="khoa : ${listKhoa}"
-                                  th:value="${khoa.maKhoa}"
-                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                  th:each="mh : ${listMonHoc}"
+                                  th:value="${mh.maMH}"
+                                  th:text="${mh.maMH} + '-' + ${mh.tenMH}"
                                 ></option>
                               </select>
                             </div>
@@ -161,45 +161,45 @@
                                 >Mã giảng viên</label
                               >
                               <select
-                                th:field="*{maKhoa}"
+                                th:field="*{maGV}"
                                 name="maKhoa"
                                 class="form-control"
                                 required
                               >
                                 <option
-                                  th:each="khoa : ${listKhoa}"
-                                  th:value="${khoa.maKhoa}"
-                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                  th:each="gv : ${listGiangVien}"
+                                  th:value="${gv.maGV}"
+                                  th:text="${gv.maGV} + '-' + ${gv.tenGV}"
                                 ></option>
                               </select>
                             </div>
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Mã phòng</label>
                               <select
-                                th:field="*{maKhoa}"
+                                th:field="*{maPhong}"
                                 name="maKhoa"
                                 class="form-control"
                                 required
                               >
                                 <option
-                                  th:each="khoa : ${listKhoa}"
-                                  th:value="${khoa.maKhoa}"
-                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                  th:each="phong : ${listPhongHoc}"
+                                  th:value="${phong.maPhong}"
+                                  th:text="${phong.maPhong}"
                                 ></option>
                               </select>
                             </div>
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Thứ</label>
                               <select
-                                th:field="*{maKhoa}"
+                                th:field="*{thu}"
                                 name="maKhoa"
                                 class="form-control"
                                 required
                               >
                                 <option
-                                  th:each="khoa : ${listKhoa}"
-                                  th:value="${khoa.maKhoa}"
-                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                  th:each="thu : ${listThu}"
+                                  th:value="${thu}"
+                                  th:text="${thu}"
                                 ></option>
                               </select>
                             </div>
@@ -207,23 +207,21 @@
                               <label for="" class="form-label"
                                 >Tiết bắt đầu</label
                               >
-                              <select
-                                th:field="*{maKhoa}"
-                                name="maKhoa"
+                              <input
+                                th:field="*{tietBatDau}"
+                                type="number"
+                                name="ten"
                                 class="form-control"
+                                placeholder="Nhập tiết bắt đầu"
                                 required
-                              >
-                                <option
-                                  th:each="khoa : ${listKhoa}"
-                                  th:value="${khoa.maKhoa}"
-                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
-                                ></option>
+                              />
                               </select>
                             </div>
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Số tiết</label>
                               <input
-                                th:field="*{tenSV}"
+                                th:field="*{soTiet}"
+                                type="number"
                                 name="ten"
                                 class="form-control"
                                 placeholder="Nhập số tiếp"
@@ -235,7 +233,7 @@
                                 >Ngày bắt đầu</label
                               >
                               <input
-                                th:field="*{ngaySinh}"
+                                th:field="*{ngayBatDau}"
                                 name="ngaysinh"
                                 class="form-control"
                                 placeholder="Nhập ngày bắt đầu"
@@ -248,7 +246,7 @@
                                 >Ngày kết thúc</label
                               >
                               <input
-                                th:field="*{ngaySinh}"
+                                th:field="*{ngayKetThuc}"
                                 name="ngaysinh"
                                 class="form-control"
                                 placeholder="Nhập ngày kết thúc"
@@ -300,12 +298,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <th:block th:each="sinhVien : ${listSinhVien}">
+                  <th:block th:each="chitiet : ${listChiTiet}">
                     <tr class="row-data">
                       <!-- Modal edit student -->
                       <div
                         class="modal fade"
-                        th:attr="id= 'edit' + ${sinhVien.maSV.trim()}"
+                        th:attr="id= 'edit' + ${chitiet.maTKB.trim()} + ${chitiet.maLop.trim()} + ${chitiet.maMH.trim()} + ${chitiet.maGV.trim()} + ${chitiet.maPhong} + ${chitiet.thu.trim()}"
                         data-bs-backdrop="static"
                         data-bs-keyboard="false"
                         tabindex="-1"
@@ -328,7 +326,7 @@
                             </div>
                             <div class="modal-body" style="padding: 3rem">
                               <form
-                                th:action="@{/sinhvien}"
+                                th:action="@{/chitiettkb/update/__${chitiet.maTKB}__/__${chitiet.maLop}__/__${chitiet.maMH}__/__${chitiet.maGV}__/__${chitiet.maPhong}__/__${chitiet.thu}__}"
                                 th:object="${sinhVienFormModel}"
                                 method="post"
                               >
@@ -345,125 +343,106 @@
                                     <label for="" class="form-label"
                                       >Mã thời khóa biểu</label
                                     >
-                                    <select
-                                      th:field="*{maKhoa}"
-                                      name="maKhoa"
-                                      class="form-control"
-                                      required
-                                    >
-                                      <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
-                                      ></option>
-                                    </select>
+                                    <input
+                                        th:name="maTKB"
+                                        th:value="${chitiet.maTKB}"
+                                        name="ten"
+                                        class="form-control"
+                                        placeholder="Nhập số tiếp"
+                                        readonly="true"
+                                        required
+                                    />
                                   </div>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label"
                                       >Mã lớp</label
                                     >
-                                    <select
-                                      th:field="*{maKhoa}"
-                                      name="maKhoa"
-                                      class="form-control"
-                                      required
-                                    >
-                                      <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
-                                      ></option>
-                                    </select>
+                                    <input
+                                        th:name="maLop"
+                                        th:value="${chitiet.maLop}"
+                                        name="ten"
+                                        class="form-control"
+                                        placeholder="Nhập số tiếp"
+                                        readonly="true"
+                                        required
+                                    />
                                   </div>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label"
                                       >Mã môn học</label
                                     >
-                                    <select
-                                      th:field="*{maKhoa}"
-                                      name="maKhoa"
-                                      class="form-control"
-                                      required
-                                    >
-                                      <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
-                                      ></option>
-                                    </select>
+                                    <input
+                                        th:name="maMH"
+                                        th:value="${chitiet.maMH}"
+                                        name="ten"
+                                        class="form-control"
+                                        placeholder="Nhập số tiếp"
+                                        readonly="true"
+                                        required
+                                    />
                                   </div>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label"
                                       >Mã giảng viên</label
                                     >
-                                    <select
-                                      th:field="*{maKhoa}"
-                                      name="maKhoa"
-                                      class="form-control"
-                                      required
-                                    >
-                                      <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
-                                      ></option>
-                                    </select>
+                                    <input
+                                        th:name="maGV"
+                                        th:value="${chitiet.maGV}"
+                                        name="ten"
+                                        class="form-control"
+                                        placeholder="Nhập số tiếp"
+                                        readonly="true"
+                                        required
+                                    />
                                   </div>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label"
                                       >Mã phòng</label
                                     >
-                                    <select
-                                      th:field="*{maKhoa}"
-                                      name="maKhoa"
-                                      class="form-control"
-                                      required
-                                    >
-                                      <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
-                                      ></option>
-                                    </select>
+                                    <input
+                                        th:name="maPhong"
+                                        th:value="${chitiet.maPhong}"
+                                        name="ten"
+                                        class="form-control"
+                                        placeholder="Nhập số tiếp"
+                                        readonly="true"
+                                        required
+                                    />
                                   </div>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label">Thứ</label>
-                                    <select
-                                      th:field="*{maKhoa}"
-                                      name="maKhoa"
-                                      class="form-control"
-                                      required
-                                    >
-                                      <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
-                                      ></option>
-                                    </select>
+                                    <input
+                                        th:name="thu"
+                                        th:value="${chitiet.thu}"
+                                        name="ten"
+                                        class="form-control"
+                                        placeholder="Nhập số tiếp"
+                                        readonly="true"
+                                        required
+                                    />
                                   </div>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label"
                                       >Tiết bắt đầu</label
                                     >
-                                    <select
-                                      th:field="*{maKhoa}"
-                                      name="maKhoa"
-                                      class="form-control"
-                                      required
-                                    >
-                                      <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
-                                      ></option>
-                                    </select>
+                                    <input
+                                        th:name="tietBatDau"
+                                        th:value="${chitiet.tietBatDau}"
+                                        type="number"
+                                        name="ten"
+                                        class="form-control"
+                                        placeholder="Nhập tiết bắt đầu"
+                                        required
+                                    />
                                   </div>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label"
                                       >Số tiết</label
                                     >
                                     <input
-                                      th:field="*{tenSV}"
+                                      th:name="soTiet"
+                                      th:value="${chitiet.soTiet}"
+                                      type="number"
                                       name="ten"
                                       class="form-control"
                                       placeholder="Nhập số tiếp"
@@ -475,7 +454,8 @@
                                       >Ngày bắt đầu</label
                                     >
                                     <input
-                                      th:field="*{ngaySinh}"
+                                      th:name="ngayBatDau"
+                                      th:value="${chitiet.ngayBatDau}"
                                       name="ngaysinh"
                                       class="form-control"
                                       placeholder="Nhập ngày bắt đầu"
@@ -488,7 +468,8 @@
                                       >Ngày kết thúc</label
                                     >
                                     <input
-                                      th:field="*{ngaySinh}"
+                                      th:name="ngayKetThuc"
+                                      th:value="chitiet.ngayKetThuc"
                                       name="ngaysinh"
                                       class="form-control"
                                       placeholder="Nhập ngày kết thúc"
@@ -523,20 +504,20 @@
                           </div>
                         </div>
                       </div>
-                      <td th:text="${sinhVien.maSV}"></td>
-                      <td th:text="${sinhVien.tenSV}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
+                      <td th:text="${chitiet.maTKB}"></td>
+                      <td th:text="${chitiet.maLop}"></td>
+                      <td th:text="${chitiet.maMH}"></td>
+                      <td th:text="${chitiet.maGV}"></td>
+                      <td th:text="${chitiet.maPhong}"></td>
+                      <td th:text="${chitiet.thu}"></td>
+                      <td th:text="${chitiet.tietBatDau}"></td>
+                      <td th:text="${chitiet.soTiet}"></td>
+                      <td th:text="${chitiet.ngayBatDau}"></td>
+                      <td th:text="${chitiet.ngayKetThuc}"></td>
                       <td>
                         <input
                           data-bs-toggle="modal"
-                          th:attr="data-bs-target= '#edit' + ${sinhVien.maSV.trim()}"
+                          th:attr="data-bs-target= '#edit' + ${chitiet.maTKB.trim()} + ${chitiet.maLop.trim()} + ${chitiet.maMH.trim()} + ${chitiet.maGV.trim()} + ${chitiet.maPhong} + ${chitiet.thu.trim()}"
                           value="Sửa"
                           type="button"
                           class="btn-add"
@@ -549,7 +530,7 @@
                       </td>
                       <td>
                         <form
-                          th:action="@{sinhvien/delete/__${sinhVien.maSV}__}"
+                          th:action="@{chitiettkb/delete/__${chitiet.maTKB}__/__${chitiet.maLop}__/__${chitiet.maMH}__/__${chitiet.maGV}__/__${chitiet.maPhong}__/__${chitiet.thu}__}"
                           method="post"
                         >
                           <input

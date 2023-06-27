@@ -13,7 +13,7 @@ import lombok.Data;
 public class PhongHoc {
     @Id
     @Column(name = "maphong")
-    private String maPhong;
+    private int maPhong;
 
     @Column(name = "loaiphong")
     private String loaiPhong;

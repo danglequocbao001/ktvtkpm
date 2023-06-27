@@ -10,5 +10,5 @@ import com.dulich.dulich.model.PhongHoc;
 
 @Repository
 public interface PhongHocRepository extends JpaRepository<PhongHoc, Long> {
-    Optional<PhongHoc> findByMaPhong(String maPhong);
+    Optional<PhongHoc> findByMaPhong(int maPhong);
 }

@@ -36,13 +36,23 @@ public class PhongHocController {
 
     @PostMapping("/phonghoc")
     public String themPhongHoc(@ModelAttribute("phongHocModel") PhongHoc phongHoc) {
-        
         phongHocRepository.save(phongHoc);
         return "redirect:phonghoc";
     }
 
     @PostMapping("/phonghoc/update/{id}") 
-    public String updatePhongHoc(@PathVariable(value = "id") String maPH) {
+    public String updatePhongHoc(@PathVariable(value = "id") int maPH, @ModelAttribute("phongHocModel") PhongHoc phongHoc) {
+        PhongHoc newPhongHoc = phongHocRepository.findByMaPhong(maPH).get();
+        newPhongHoc.setLoaiPhong(phongHoc.getLoaiPhong());
+        newPhongHoc.setTrangThai(phongHoc.getTrangThai());
+        phongHocRepository.save(newPhongHoc);
+        return "redirect:/phonghoc";
+    }
+
+    @PostMapping("/phonghoc/delete/{id}")
+    public String deletePhongHoc(@PathVariable(value = "id") int maPH) {
+        PhongHoc phongHoc = phongHocRepository.findByMaPhong(maPH).get();
+        phongHocRepository.delete(phongHoc);
         return "redirect:/phonghoc";
     }
 }

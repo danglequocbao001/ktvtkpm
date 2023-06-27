@@ -291,7 +291,7 @@
                                 <option
                                   th:each="hp : ${listHocPhan}"
                                   th:value="${hp.maHP}"
-                                  th:text="${hp.maHP}"
+                                  th:text="${hp.maHP} + '-' + ${hp.tenHP}"
                                 ></option>
                               </select>
                             </div>
@@ -475,7 +475,7 @@
                                         th:each="hp : ${listHocPhan}"
                                         th:value="${hp.maHP}"
                                         th:selected="${monHoc.maHP} == ${hp.maHP} ? true : false"
-                                        th:text="${hp.maHP}"
+                                        th:text="${hp.maHP} + '-' + ${hp.tenHP}"
                                       ></option>
                                     </select>
                                   </div>

@@ -34,17 +34,17 @@ public class ChiTietTKB {
 
     @Id
     @Column(name = "maphong")
-    private String maPhong;
+    private int maPhong;
 
     @Id
     @Column(name = "thu")
     private String thu;
 
     @Column(name = "tietbatdau")
-    private String tietBatDau;
+    private int tietBatDau;
 
     @Column(name = "sotiet")
-    private String soTiet;
+    private int soTiet;
 
     @Column(name = "ngaybatdau")
     private LocalDate ngayBatDau;
