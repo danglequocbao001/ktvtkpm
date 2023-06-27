@@ -316,12 +316,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <th:block th:each="sinhVien : ${listSinhVien}">
+                  <th:block th:each="giangVien : ${listGiangVien}">
                     <tr class="row-data">
                       <!-- Modal edit student -->
                       <div
                         class="modal fade"
-                        th:attr="id= 'edit' + ${sinhVien.maSV.trim()}"
+                        th:attr="id= 'edit' + ${giangVien.maGV.trim()}"
                         data-bs-backdrop="static"
                         data-bs-keyboard="false"
                         tabindex="-1"
@@ -344,7 +344,7 @@
                             </div>
                             <div class="modal-body" style="padding: 3rem">
                               <form
-                                th:action="@{/giangvien}"
+                                th:action="@{/giangvien/update/__${giangVien.maGV}__}"
                                 th:object="${giangVienFormModel}"
                                 method="post"
                               >
@@ -362,11 +362,13 @@
                                       >Mã giảng viên</label
                                     >
                                     <input
-                                      th:field="*{maGV}"
+                                      th:name="maGV"
+                                      th:value="${giangVien.maGV}"
                                       type="text"
                                       name="magv"
                                       class="form-control"
                                       placeholder="Nhập mã giảng viên"
+                                      readonly="true"
                                       required
                                     />
                                   </div>
@@ -375,7 +377,8 @@
                                       >Họ và tên</label
                                     >
                                     <input
-                                      th:field="*{tenGV}"
+                                      th:name="tenGV"
+                                      th:value="${giangVien.tenGV}"
                                       name="ten"
                                       class="form-control"
                                       placeholder="Nhập họ và tên"
@@ -385,7 +388,8 @@
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label">SĐT</label>
                                     <input
-                                      th:field="*{sdt}"
+                                      th:name="sdt"
+                                      th:value="${giangVien.sdt}"
                                       name="sdt"
                                       class="form-control"
                                       placeholder="Nhập số điện thoại"
@@ -397,15 +401,16 @@
                                       >Mã khoa</label
                                     >
                                     <select
-                                      th:field="*{maKhoa}"
+                                      th:name="maKhoa"
                                       name="maKhoa"
                                       class="form-control"
                                       required
                                     >
                                       <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                      th:each="khoa : ${listKhoa}"
+                                      th:value="${khoa.maKhoa}"
+                                      th:selected="${giangVien.maKhoa} == ${khoa.maKhoa} ? true : false"
+                                      th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
                                       ></option>
                                     </select>
                                   </div>
@@ -414,7 +419,8 @@
                                       >Địa chỉ</label
                                     >
                                     <input
-                                      th:field="*{diaChi}"
+                                      th:name="diaChi"
+                                      th:value="${giangVien.diaChi}"
                                       name="diachi"
                                       class="form-control"
                                       placeholder="Nhập địa chỉ"
@@ -426,7 +432,8 @@
                                       >Email</label
                                     >
                                     <input
-                                      th:field="*{email}"
+                                      th:name="email"
+                                      th:value="${giangVien.email}"
                                       name="email"
                                       class="form-control"
                                       placeholder="Nhập email"
@@ -460,16 +467,16 @@
                           </div>
                         </div>
                       </div>
-                      <td th:text="${sinhVien.maSV}"></td>
-                      <td th:text="${sinhVien.tenSV}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.ngaySinh}"></td>
-                      <td th:text="${sinhVien.diaChi}"></td>
-                      <td th:text="${sinhVien.email}"></td>
+                      <td th:text="${giangVien.maGV}"></td>
+                      <td th:text="${giangVien.tenGV}"></td>
+                      <td th:text="${giangVien.maKhoa}"></td>
+                      <td th:text="${giangVien.sdt}"></td>
+                      <td th:text="${giangVien.diaChi}"></td>
+                      <td th:text="${giangVien.email}"></td>
                       <td>
                         <input
                           data-bs-toggle="modal"
-                          th:attr="data-bs-target= '#edit' + ${sinhVien.maSV.trim()}"
+                          th:attr="data-bs-target= '#edit' + ${giangVien.maGV.trim()}"
                           value="Sửa"
                           type="button"
                           class="btn-add"
@@ -482,7 +489,7 @@
                       </td>
                       <td>
                         <form
-                          th:action="@{sinhvien/delete/__${sinhVien.maSV}__}"
+                          th:action="@{giangvien/delete/__${giangVien.maGV}__}"
                           method="post"
                         >
                           <input

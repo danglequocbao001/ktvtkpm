@@ -57,7 +57,7 @@ public class GiangVienController {
         taiKhoanRepository.save(taiKhoan);
         giangVienRepository.save(giangVien);
         
-        return "giangvien";
+        return "redirect:giangvien";
     }
 
     @PostMapping("/giangvien/update/{id}")

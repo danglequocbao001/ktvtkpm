@@ -200,8 +200,8 @@
                       </div>
                       <div class="modal-body" style="padding: 3rem">
                         <form
-                          th:action="@{/sinhvien}"
-                          th:object="${sinhVienFormModel}"
+                          th:action="@{/lop}"
+                          th:object="${lopModel}"
                           method="post"
                         >
                           <div class="mb-3">
@@ -211,7 +211,7 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Mã lớp</label>
                               <input
-                                th:field="*{maSV}"
+                                th:field="*{maLop}"
                                 type="text"
                                 name="masv"
                                 class="form-control"
@@ -222,7 +222,7 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Tên lớp</label>
                               <input
-                                th:field="*{tenSV}"
+                                th:field="*{tenLop}"
                                 name="ten"
                                 class="form-control"
                                 placeholder="Nhập tên lớp"
@@ -232,15 +232,15 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Mã khoa</label>
                               <select
-                                th:field="*{maLop}"
+                                th:field="*{maKhoa}"
                                 name="lop"
                                 class="form-control"
                                 required
                               >
                                 <option
-                                  th:each="lop : ${listLop}"
-                                  th:value="${lop.maLop}"
-                                  th:text="${lop.maLop} + '-' + ${lop.tenLop}"
+                                  th:each="khoa : ${listKhoa}"
+                                  th:value="${khoa.maKhoa}"
+                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
                                 ></option>
                               </select>
                             </div>
@@ -281,12 +281,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <th:block th:each="sinhVien : ${listSinhVien}">
+                  <th:block th:each="lop : ${listLop}">
                     <tr class="row-data">
                       <!-- Modal edit student -->
                       <div
                         class="modal fade"
-                        th:attr="id= 'edit' + ${sinhVien.maSV.trim()}"
+                        th:attr="id= 'edit' + ${lop.maLop.trim()}"
                         data-bs-backdrop="static"
                         data-bs-keyboard="false"
                         tabindex="-1"
@@ -309,8 +309,8 @@
                             </div>
                             <div class="modal-body" style="padding: 3rem">
                               <form
-                                th:action="@{/sinhvien}"
-                                th:object="${sinhVienFormModel}"
+                                th:action="@{/lop/update/__${lop.maLop}__}"
+                                th:object="${lopModel}"
                                 method="post"
                               >
                                 <div class="mb-3">
@@ -327,11 +327,13 @@
                                       >Mã lớp</label
                                     >
                                     <input
-                                      th:field="*{maSV}"
+                                      th:name="maLop"
+                                      th:value="${lop.maLop}"
                                       type="text"
                                       name="masv"
                                       class="form-control"
                                       placeholder="Nhập mã lớp"
+                                      readonly="true"
                                       required
                                     />
                                   </div>
@@ -340,7 +342,8 @@
                                       >Tên lớp</label
                                     >
                                     <input
-                                      th:field="*{tenSV}"
+                                      th:name="tenLop"
+                                      th:value="${lop.tenLop}"
                                       name="ten"
                                       class="form-control"
                                       placeholder="Nhập tên lớp"
@@ -352,15 +355,16 @@
                                       >Mã khoa</label
                                     >
                                     <select
-                                      th:field="*{maLop}"
+                                      th:name="maKhoa"
                                       name="lop"
                                       class="form-control"
                                       required
                                     >
                                       <option
-                                        th:each="lop : ${listLop}"
-                                        th:value="${lop.maLop}"
-                                        th:text="${lop.maLop} + '-' + ${lop.tenLop}"
+                                        th:each="khoa : ${listKhoa}"
+                                        th:value="${khoa.maKhoa}"
+                                        th:selected="${lop.maKhoa} == ${khoa.maKhoa} ? true : false"
+                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
                                       ></option>
                                     </select>
                                   </div>
@@ -391,13 +395,13 @@
                           </div>
                         </div>
                       </div>
-                      <td th:text="${sinhVien.maSV}"></td>
-                      <td th:text="${sinhVien.tenSV}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
+                      <td th:text="${lop.maLop}"></td>
+                      <td th:text="${lop.tenLop}"></td>
+                      <td th:text="${lop.maKhoa}"></td>
                       <td>
                         <input
                           data-bs-toggle="modal"
-                          th:attr="data-bs-target= '#edit' + ${sinhVien.maSV.trim()}"
+                          th:attr="data-bs-target= '#edit' + ${lop.maLop.trim()}"
                           value="Sửa"
                           type="button"
                           class="btn-add"
@@ -410,7 +414,7 @@
                       </td>
                       <td>
                         <form
-                          th:action="@{sinhvien/delete/__${sinhVien.maSV}__}"
+                          th:action="@{lop/delete/__${lop.maLop}__}"
                           method="post"
                         >
                           <input

@@ -200,8 +200,8 @@
                       </div>
                       <div class="modal-body" style="padding: 3rem">
                         <form
-                          th:action="@{/sinhvien}"
-                          th:object="${sinhVienFormModel}"
+                          th:action="@{/monhoc}"
+                          th:object="${monHocModel}"
                           method="post"
                         >
                           <div class="mb-3">
@@ -213,7 +213,7 @@
                                 >Mã môn học</label
                               >
                               <input
-                                th:field="*{maSV}"
+                                th:field="*{maMH}"
                                 type="text"
                                 name="masv"
                                 class="form-control"
@@ -226,7 +226,7 @@
                                 >Tên môn học</label
                               >
                               <input
-                                th:field="*{tenSV}"
+                                th:field="*{tenMH}"
                                 name="ten"
                                 class="form-control"
                                 placeholder="Nhập tên môn học"
@@ -236,6 +236,7 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Học kỳ</label>
                               <select
+                                th:field="*{hocKy}"
                                 name="hocky"
                                 class="form-control"
                                 required
@@ -248,6 +249,7 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Ngành</label>
                               <select
+                                th:field="*{nganh}"
                                 name="nganh"
                                 class="form-control"
                                 required
@@ -266,12 +268,12 @@
                             </div>
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Loại</label>
-                              <select name="loai" class="form-control" required>
-                                <option value="AT" selected="selected">
+                              <select th:field="*{loai}" name="loai" class="form-control" required>
+                                <option value="LT" selected="selected">
                                   Lý thuyết
                                 </option>
-                                <option value="CN">Thực hành</option>
-                                <option value="DT">
+                                <option value="TH">Thực hành</option>
+                                <option value="KH">
                                   Lý thuyết & Thực hành
                                 </option>
                               </select>
@@ -281,15 +283,15 @@
                                 >Mã học phần</label
                               >
                               <select
-                                th:field="*{mahp}"
+                                th:field="*{maHP}"
                                 name="mahp"
                                 class="form-control"
                                 required
                               >
                                 <option
-                                  th:each="khoa : ${listKhoa}"
-                                  th:value="${khoa.maKhoa}"
-                                  th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                  th:each="hp : ${listHocPhan}"
+                                  th:value="${hp.maHP}"
+                                  th:text="${hp.maHP}"
                                 ></option>
                               </select>
                             </div>
@@ -333,12 +335,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <th:block th:each="sinhVien : ${listSinhVien}">
+                  <th:block th:each="monHoc : ${listMonHoc}">
                     <tr class="row-data">
                       <!-- Modal edit student -->
                       <div
                         class="modal fade"
-                        th:attr="id= 'edit' + ${sinhVien.maSV.trim()}"
+                        th:attr="id= 'edit' + ${monHoc.maMH.trim()}"
                         data-bs-backdrop="static"
                         data-bs-keyboard="false"
                         tabindex="-1"
@@ -361,8 +363,8 @@
                             </div>
                             <div class="modal-body" style="padding: 3rem">
                               <form
-                                th:action="@{/sinhvien}"
-                                th:object="${sinhVienFormModel}"
+                                th:action="@{/monhoc}"
+                                th:object="${monHocModel}"
                                 method="post"
                               >
                                 <div class="mb-3">
@@ -379,7 +381,8 @@
                                       >Mã môn học</label
                                     >
                                     <input
-                                      th:field="*{maSV}"
+                                      th:name="maMH"
+                                      th:value="${monHoc.maMH}"
                                       type="text"
                                       name="masv"
                                       class="form-control"
@@ -392,7 +395,8 @@
                                       >Tên môn học</label
                                     >
                                     <input
-                                      th:field="*{tenSV}"
+                                      th:name="tenMH"
+                                      th:value="${monHoc.tenMH}"
                                       name="ten"
                                       class="form-control"
                                       placeholder="Nhập tên môn học"
@@ -404,15 +408,16 @@
                                       >Học kỳ</label
                                     >
                                     <select
+                                      th:name="hocKy"
                                       name="hocky"
                                       class="form-control"
                                       required
                                     >
-                                      <option value="1" selected="selected">
+                                      <option value="1" th:selected="${monHoc.hocKy} == 1 ? true : false">
                                         1
                                       </option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
+                                      <option value="2" th:selected="${monHoc.hocKy} == 2 ? true : false">2</option>
+                                      <option value="3" th:selected="${monHoc.hocKy} == 3 ? true : false">3</option>
                                     </select>
                                   </div>
                                   <div style="margin-bottom: 20px">
@@ -420,20 +425,21 @@
                                       >Ngành</label
                                     >
                                     <select
+                                      th:name="nganh"
                                       name="nganh"
                                       class="form-control"
                                       required
                                     >
-                                      <option value="AT" selected="selected">
+                                      <option value="AT" th:selected="${monHoc.nganh} == 'AT' ? true : false">
                                         ATTT
                                       </option>
-                                      <option value="CN">CNTT</option>
-                                      <option value="DT">Điện/Điện tử</option>
-                                      <option value="KT">Kế toán</option>
-                                      <option value="MR">Marketing</option>
-                                      <option value="PT">ĐPT</option>
-                                      <option value="QT">QTKD</option>
-                                      <option value="VT">ĐT/VT</option>
+                                      <option value="CN" th:selected="${monHoc.nganh} == 'CN' ? true : false">CNTT</option>
+                                      <option value="DT" th:selected="${monHoc.nganh} == 'DT' ? true : false">Điện/Điện tử</option>
+                                      <option value="KT" th:selected="${monHoc.nganh} == 'KT' ? true : false">Kế toán</option>
+                                      <option value="MR" th:selected="${monHoc.nganh} == 'MR' ? true : false">Marketing</option>
+                                      <option value="PT" th:selected="${monHoc.nganh} == 'PT' ? true : false">ĐPT</option>
+                                      <option value="QT" th:selected="${monHoc.nganh} == 'QT' ? true : false">QTKD</option>
+                                      <option value="VT" th:selected="${monHoc.nganh} == 'VT' ? true : false">ĐT/VT</option>
                                     </select>
                                   </div>
                                   <div style="margin-bottom: 20px">
@@ -441,15 +447,16 @@
                                       >Loại</label
                                     >
                                     <select
+                                      th:name="loai"
                                       name="loai"
                                       class="form-control"
                                       required
                                     >
-                                      <option value="AT" selected="selected">
+                                      <option value="LT" th:selected="${monHoc.loai} == 'LT' ? true : false">
                                         Lý thuyết
                                       </option>
-                                      <option value="CN">Thực hành</option>
-                                      <option value="DT">
+                                      <option value="TH" th:selected="${monHoc.loai} == 'TH' ? true : false">Thực hành</option>
+                                      <option value="KH" th:selected="${monHoc.loai} == 'KH' ? true : false">
                                         Lý thuyết & Thực hành
                                       </option>
                                     </select>
@@ -459,15 +466,16 @@
                                       >Mã học phần</label
                                     >
                                     <select
-                                      th:field="*{mahp}"
+                                      th:name="maHP"
                                       name="mahp"
                                       class="form-control"
                                       required
                                     >
                                       <option
-                                        th:each="khoa : ${listKhoa}"
-                                        th:value="${khoa.maKhoa}"
-                                        th:text="${khoa.maKhoa} + '-' + ${khoa.tenKhoa}"
+                                        th:each="hp : ${listHocPhan}"
+                                        th:value="${hp.maHP}"
+                                        th:selected="${monHoc.maHP} == ${hp.maHP} ? true : false"
+                                        th:text="${hp.maHP}"
                                       ></option>
                                     </select>
                                   </div>
@@ -498,16 +506,16 @@
                           </div>
                         </div>
                       </div>
-                      <td th:text="${sinhVien.maMH}"></td>
-                      <td th:text="${sinhVien.tenMH}"></td>
-                      <td th:text="${sinhVien.hocKy}"></td>
-                      <td th:text="${sinhVien.nganh}"></td>
-                      <td th:text="${sinhVien.loai}"></td>
-                      <td th:text="${sinhVien.maHP}"></td>
+                      <td th:text="${monHoc.maMH}"></td>
+                      <td th:text="${monHoc.tenMH}"></td>
+                      <td th:text="${monHoc.hocKy}"></td>
+                      <td th:text="${monHoc.nganh}"></td>
+                      <td th:text="${monHoc.loai}"></td>
+                      <td th:text="${monHoc.maHP}"></td>
                       <td>
                         <input
                           data-bs-toggle="modal"
-                          th:attr="data-bs-target= '#edit' + ${sinhVien.maSV.trim()}"
+                          th:attr="data-bs-target= '#edit' + ${monHoc.maMH.trim()}"
                           value="Sửa"
                           type="button"
                           class="btn-add"
@@ -520,7 +528,7 @@
                       </td>
                       <td>
                         <form
-                          th:action="@{sinhvien/delete/__${sinhVien.maSV}__}"
+                          th:action="@{monhoc/delete/__${monHoc.maMH}__}"
                           method="post"
                         >
                           <input

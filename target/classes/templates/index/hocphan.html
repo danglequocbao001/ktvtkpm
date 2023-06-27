@@ -200,8 +200,8 @@
                       </div>
                       <div class="modal-body" style="padding: 3rem">
                         <form
-                          th:action="@{/sinhvien}"
-                          th:object="${sinhVienFormModel}"
+                          th:action="@{/hocphan}"
+                          th:object="${hocPhanModel}"
                           method="post"
                         >
                           <div class="mb-3">
@@ -213,7 +213,7 @@
                                 >Mã học phần</label
                               >
                               <input
-                                th:field="*{maSV}"
+                                th:field="*{maHP}"
                                 type="text"
                                 name="masv"
                                 class="form-control"
@@ -222,11 +222,25 @@
                               />
                             </div>
                             <div style="margin-bottom: 20px">
+                                <label for="" class="form-label"
+                                  >Tên học phần</label
+                                >
+                                <input
+                                  th:field="*{tenHP}"
+                                  type="text"
+                                  name="masv"
+                                  class="form-control"
+                                  placeholder="Nhập tên học phần"
+                                  required
+                                />
+                              </div>
+                            <div style="margin-bottom: 20px">
                               <label for="" class="form-label"
                                 >Số tín chỉ</label
                               >
                               <input
-                                th:field="*{tenSV}"
+                                th:field="*{soTC}"
+                                type="number"
                                 name="ten"
                                 class="form-control"
                                 placeholder="Nhập số tín chỉ"
@@ -238,7 +252,8 @@
                                 >Số tín chỉ học phí</label
                               >
                               <input
-                                th:field="*{ngaySinh}"
+                                th:field="*{soTCHP}"
+                                type="number"
                                 name="ngaysinh"
                                 class="form-control"
                                 placeholder="Nhập số tín chỉ học phí"
@@ -277,17 +292,18 @@
                 <thead>
                   <tr>
                     <th>Mã học phần</th>
+                    <th>Tên học phần</th>
                     <th>Số tín chỉ</th>
                     <th>Số tín chỉ học phí</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <th:block th:each="sinhVien : ${listSinhVien}">
+                  <th:block th:each="hocPhan : ${listHocPhan}">
                     <tr class="row-data">
                       <!-- Modal edit student -->
                       <div
                         class="modal fade"
-                        th:attr="id= 'edit' + ${sinhVien.maSV.trim()}"
+                        th:attr="id= 'edit' + ${hocPhan.maHP.trim()}"
                         data-bs-backdrop="static"
                         data-bs-keyboard="false"
                         tabindex="-1"
@@ -310,8 +326,8 @@
                             </div>
                             <div class="modal-body" style="padding: 3rem">
                               <form
-                                th:action="@{/sinhvien}"
-                                th:object="${sinhVienFormModel}"
+                                th:action="@{/hocphan/update/__${hocPhan.maHP}__}"
+                                th:object="${hocPhanModel}"
                                 method="post"
                               >
                                 <div class="mb-3">
@@ -328,7 +344,8 @@
                                       >Mã học phần</label
                                     >
                                     <input
-                                      th:field="*{maSV}"
+                                      th:name="maHP"
+                                      th:value="${hocPhan.maHP}"
                                       type="text"
                                       name="masv"
                                       class="form-control"
@@ -338,10 +355,26 @@
                                   </div>
                                   <div style="margin-bottom: 20px">
                                     <label for="" class="form-label"
+                                      >Tên học phần</label
+                                    >
+                                    <input
+                                      th:name="tenHP"
+                                      th:value="${hocPhan.tenHP}"
+                                      type="text"
+                                      name="masv"
+                                      class="form-control"
+                                      placeholder="Nhập tên học phần"
+                                      required
+                                    />
+                                  </div>
+                                  <div style="margin-bottom: 20px">
+                                    <label for="" class="form-label"
                                       >Số tín chỉ</label
                                     >
                                     <input
-                                      th:field="*{tenSV}"
+                                      th:name="soTC"
+                                      th:value="${hocPhan.soTC}"
+                                      type="number"
                                       name="ten"
                                       class="form-control"
                                       placeholder="Nhập số tín chỉ"
@@ -353,7 +386,9 @@
                                       >Số tín chỉ học phí</label
                                     >
                                     <input
-                                      th:field="*{ngaySinh}"
+                                      th:name="soTCHP"
+                                      th:value="${hocPhan.soTCHP}"
+                                      type="number"
                                       name="ngaysinh"
                                       class="form-control"
                                       placeholder="Nhập số tín chỉ học phí"
@@ -387,16 +422,14 @@
                           </div>
                         </div>
                       </div>
-                      <td th:text="${sinhVien.maSV}"></td>
-                      <td th:text="${sinhVien.tenSV}"></td>
-                      <td th:text="${sinhVien.maLop}"></td>
-                      <td th:text="${sinhVien.ngaySinh}"></td>
-                      <td th:text="${sinhVien.diaChi}"></td>
-                      <td th:text="${sinhVien.email}"></td>
+                      <td th:text="${hocPhan.maHP}"></td>
+                      <td th:text="${hocPhan.tenHP}"></td>
+                      <td th:text="${hocPhan.soTC}"></td>
+                      <td th:text="${hocPhan.soTCHP}"></td>
                       <td>
                         <input
                           data-bs-toggle="modal"
-                          th:attr="data-bs-target= '#edit' + ${sinhVien.maSV.trim()}"
+                          th:attr="data-bs-target= '#edit' + ${hocPhan.maHP.trim()}"
                           value="Sửa"
                           type="button"
                           class="btn-add"
@@ -409,7 +442,7 @@
                       </td>
                       <td>
                         <form
-                          th:action="@{sinhvien/delete/__${sinhVien.maSV}__}"
+                          th:action="@{hocphan/delete/__${hocPhan.maHP}__}"
                           method="post"
                         >
                           <input

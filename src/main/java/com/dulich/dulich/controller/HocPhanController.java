@@ -26,10 +26,12 @@ public class HocPhanController {
     @PostMapping("/hocphan")
     public String themHocPhan(@ModelAttribute("hocPhanModel") HocPhan hocPhan, Model model) {
         String inputMaHP = hocPhan.getMaHP();
+        String inputTenHP = hocPhan.getTenHP();
         int inputSoTC = hocPhan.getSoTC();
         int inputSoTCHP = hocPhan.getSoTCHP();
         HocPhan newHocPhan = new HocPhan();
 
+        newHocPhan.setTenHP(inputTenHP);
         newHocPhan.setMaHP(inputMaHP);
         newHocPhan.setSoTC(inputSoTC);
         newHocPhan.setSoTCHP(inputSoTCHP);
@@ -42,11 +44,13 @@ public class HocPhanController {
     @PostMapping("/hocphan/update/{id}")
     public String updateHocPhan(@PathVariable(value = "id") String maHP, @ModelAttribute("hocPhanModel") HocPhan hocPhan) {
         String inputMaHP = hocPhan.getMaHP();
+        String inputTenHP = hocPhan.getTenHP();
         int inputSoTC = hocPhan.getSoTC();
         int inputSoTCHP = hocPhan.getSoTCHP();
         HocPhan newHocPhan = hocPhanRepository.findByMaHP(maHP).get();
 
         newHocPhan.setMaHP(inputMaHP);
+        newHocPhan.setTenHP(inputTenHP);
         newHocPhan.setSoTC(inputSoTC);
         newHocPhan.setSoTCHP(inputSoTCHP);
 
