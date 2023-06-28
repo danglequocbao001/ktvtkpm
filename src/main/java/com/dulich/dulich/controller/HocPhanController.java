@@ -3,6 +3,7 @@ package com.dulich.dulich.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +18,10 @@ public class HocPhanController {
     HocPhanRepository hocPhanRepository;
 
     @GetMapping("/hocphan")
-    public String hocPhan(Model model) {
+    public String hocPhan(Model model, @CookieValue("account") String account) {
         model.addAttribute("hocPhanModel", new HocPhan());
         model.addAttribute("listHocPhan", hocPhanRepository.findAll());
+        model.addAttribute("ma", account);
         return "hocphan";
     }
 

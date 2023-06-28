@@ -50,7 +50,7 @@ public class LoginController {
         String account = taiKhoan.getTaiKhoan().trim();
         response.addCookie(new Cookie("role", role));
         response.addCookie(new Cookie("account", account));
-        return "redirect:sinhvien";
+        return "redirect:/";
     }
 
     @RequestMapping("/logout")

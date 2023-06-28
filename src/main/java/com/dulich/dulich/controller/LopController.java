@@ -3,6 +3,7 @@ package com.dulich.dulich.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +21,11 @@ public class LopController {
     LopRepository lopRepository;
 
     @GetMapping("/lop")
-    public String lop(Model model) {
+    public String lop(Model model, @CookieValue("account") String account) {
         model.addAttribute("lopModel", new Lop());
         model.addAttribute("listLop", lopRepository.findAll());
         model.addAttribute("listKhoa", khoaRepository.findAll());
+        model.addAttribute("ma", account);
         return "lop";
     }
 

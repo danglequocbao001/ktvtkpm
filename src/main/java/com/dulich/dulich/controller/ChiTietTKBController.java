@@ -48,7 +48,7 @@ public class ChiTietTKBController {
     SinhVienRepository sinhVienRepository;
 
     @GetMapping("/chitiettkb")
-    public String chiTietTKB(Model model) {
+    public String chiTietTKB(Model model, @CookieValue("account") String account) {
         List<String> listThu = new ArrayList<>();
         listThu.add("2");
         listThu.add("3");
@@ -65,6 +65,7 @@ public class ChiTietTKBController {
         model.addAttribute("listPhongHoc", phongHocRepository.findAll());
         model.addAttribute("listThu", listThu);
         model.addAttribute("listChiTiet", chiTietTKBRepository.findAll());
+        model.addAttribute("ma", account);
         return "chitiettkb";
     }
 
@@ -134,16 +135,19 @@ public class ChiTietTKBController {
             model.addAttribute("listChiTiet", listChiTiet);
             model.addAttribute("nienKhoa", nienKhoa);
             model.addAttribute("hocKy", hocKy);
+            model.addAttribute("ma", account);
             return "xemtkb";
         } catch(NullPointerException ex) {
             model.addAttribute("listChiTiet", listChiTiet);
             model.addAttribute("nienKhoa", nienKhoa);
             model.addAttribute("hocKy", hocKy);
+            model.addAttribute("ma", account);
             return "xemtkb";
         } catch(NoSuchElementException ex) {
             model.addAttribute("listChiTiet", listChiTiet);
             model.addAttribute("nienKhoa", nienKhoa);
             model.addAttribute("hocKy", hocKy);
+            model.addAttribute("ma", account);
             return "xemtkb";
         }
     }

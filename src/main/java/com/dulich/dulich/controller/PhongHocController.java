@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ public class PhongHocController {
     PhongHocRepository phongHocRepository;
 
     @GetMapping("/phonghoc")
-    public String phongHoc(Model model) {
+    public String phongHoc(Model model, @CookieValue("account") String account) {
         List<String> listLoaiPhong = new ArrayList<>();
         listLoaiPhong.add("LT");
         listLoaiPhong.add("TH");
@@ -31,6 +32,7 @@ public class PhongHocController {
         model.addAttribute("listPhongHoc", phongHocRepository.findAll());
         model.addAttribute("listLoaiPhong", listLoaiPhong);
         model.addAttribute("listTrangThai", listTrangThai);
+        model.addAttribute("ma", account);
         return "phonghoc";
     }
 
