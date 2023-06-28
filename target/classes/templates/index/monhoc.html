@@ -89,6 +89,12 @@
         <li>
           <a href="#">
             <i class="bx bxs-group"></i>
+            <span class="text">Xem thời Khóa Biểu</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="bx bxs-group"></i>
             <span class="text">Gửi Email</span>
           </a>
         </li>
@@ -100,12 +106,12 @@
         </li>
       </ul>
       <ul class="side-menu">
-        <!-- <li>
-          <a href="#">
+        <li>
+          <a href="/matkhau">
             <i class="bx bxs-cog"></i>
-            <span class="text">Settings</span>
+            <span class="text">Đổi mật khẩu</span>
           </a>
-        </li> -->
+        </li>
         <li>
           <a href="/logout" class="logout">
             <i class="bx bxs-log-out-circle"></i>
@@ -268,7 +274,12 @@
                             </div>
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Loại</label>
-                              <select th:field="*{loai}" name="loai" class="form-control" required>
+                              <select
+                                th:field="*{loai}"
+                                name="loai"
+                                class="form-control"
+                                required
+                              >
                                 <option value="LT" selected="selected">
                                   Lý thuyết
                                 </option>
@@ -413,11 +424,24 @@
                                       class="form-control"
                                       required
                                     >
-                                      <option value="1" th:selected="${monHoc.hocKy} == 1 ? true : false">
+                                      <option
+                                        value="1"
+                                        th:selected="${monHoc.hocKy} == 1 ? true : false"
+                                      >
                                         1
                                       </option>
-                                      <option value="2" th:selected="${monHoc.hocKy} == 2 ? true : false">2</option>
-                                      <option value="3" th:selected="${monHoc.hocKy} == 3 ? true : false">3</option>
+                                      <option
+                                        value="2"
+                                        th:selected="${monHoc.hocKy} == 2 ? true : false"
+                                      >
+                                        2
+                                      </option>
+                                      <option
+                                        value="3"
+                                        th:selected="${monHoc.hocKy} == 3 ? true : false"
+                                      >
+                                        3
+                                      </option>
                                     </select>
                                   </div>
                                   <div style="margin-bottom: 20px">
@@ -430,16 +454,54 @@
                                       class="form-control"
                                       required
                                     >
-                                      <option value="AT" th:selected="${monHoc.nganh} == 'AT' ? true : false">
+                                      <option
+                                        value="AT"
+                                        th:selected="${monHoc.nganh} == 'AT' ? true : false"
+                                      >
                                         ATTT
                                       </option>
-                                      <option value="CN" th:selected="${monHoc.nganh} == 'CN' ? true : false">CNTT</option>
-                                      <option value="DT" th:selected="${monHoc.nganh} == 'DT' ? true : false">Điện/Điện tử</option>
-                                      <option value="KT" th:selected="${monHoc.nganh} == 'KT' ? true : false">Kế toán</option>
-                                      <option value="MR" th:selected="${monHoc.nganh} == 'MR' ? true : false">Marketing</option>
-                                      <option value="PT" th:selected="${monHoc.nganh} == 'PT' ? true : false">ĐPT</option>
-                                      <option value="QT" th:selected="${monHoc.nganh} == 'QT' ? true : false">QTKD</option>
-                                      <option value="VT" th:selected="${monHoc.nganh} == 'VT' ? true : false">ĐT/VT</option>
+                                      <option
+                                        value="CN"
+                                        th:selected="${monHoc.nganh} == 'CN' ? true : false"
+                                      >
+                                        CNTT
+                                      </option>
+                                      <option
+                                        value="DT"
+                                        th:selected="${monHoc.nganh} == 'DT' ? true : false"
+                                      >
+                                        Điện/Điện tử
+                                      </option>
+                                      <option
+                                        value="KT"
+                                        th:selected="${monHoc.nganh} == 'KT' ? true : false"
+                                      >
+                                        Kế toán
+                                      </option>
+                                      <option
+                                        value="MR"
+                                        th:selected="${monHoc.nganh} == 'MR' ? true : false"
+                                      >
+                                        Marketing
+                                      </option>
+                                      <option
+                                        value="PT"
+                                        th:selected="${monHoc.nganh} == 'PT' ? true : false"
+                                      >
+                                        ĐPT
+                                      </option>
+                                      <option
+                                        value="QT"
+                                        th:selected="${monHoc.nganh} == 'QT' ? true : false"
+                                      >
+                                        QTKD
+                                      </option>
+                                      <option
+                                        value="VT"
+                                        th:selected="${monHoc.nganh} == 'VT' ? true : false"
+                                      >
+                                        ĐT/VT
+                                      </option>
                                     </select>
                                   </div>
                                   <div style="margin-bottom: 20px">
@@ -452,11 +514,22 @@
                                       class="form-control"
                                       required
                                     >
-                                      <option value="LT" th:selected="${monHoc.loai} == 'LT' ? true : false">
+                                      <option
+                                        value="LT"
+                                        th:selected="${monHoc.loai} == 'LT' ? true : false"
+                                      >
                                         Lý thuyết
                                       </option>
-                                      <option value="TH" th:selected="${monHoc.loai} == 'TH' ? true : false">Thực hành</option>
-                                      <option value="KH" th:selected="${monHoc.loai} == 'KH' ? true : false">
+                                      <option
+                                        value="TH"
+                                        th:selected="${monHoc.loai} == 'TH' ? true : false"
+                                      >
+                                        Thực hành
+                                      </option>
+                                      <option
+                                        value="KH"
+                                        th:selected="${monHoc.loai} == 'KH' ? true : false"
+                                      >
                                         Lý thuyết & Thực hành
                                       </option>
                                     </select>

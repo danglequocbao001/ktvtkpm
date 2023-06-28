@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Học Viện Công Nghệ Bưu Chính Viễn Thông</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://upload.wikimedia.org/wikipedia/commons/1/13/Logo_PTIT_University.png"
+    />
+    <link rel="stylesheet" href="../styles/dangnhap.css" />
+    <link rel="stylesheet" href="../styles/global.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <div class="title"><span>Đổi mật khẩu</span></div>
+        <form th:action="@{/login}" th:object="${loginModel}" method="post">
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input
+              th:field="*{taiKhoan}"
+              type="text"
+              placeholder="Mật khẩu hiện tại"
+              required
+            />
+            <p th:text="${errorTaiKhoan}"></p>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input
+              th:field="*{matKhau}"
+              type="password"
+              placeholder="Mật khẩu mới"
+              required
+            />
+            <p th:text="${errorMatKhau}"></p>
+          </div>
+          <div class="row">
+            <i class="fas fa-lock"></i>
+            <input
+              th:field="*{matKhau}"
+              type="password"
+              placeholder="Xác nhận mật khẩu"
+              required
+            />
+            <p th:text="${errorMatKhau}"></p>
+          </div>
+          <!-- <div class="pass"><a href="#">Forgot password?</a></div> -->
+          <div class="row button">
+            <input type="submit" value="Đổi mật khẩu" />
+          </div>
+          <div class="signup-link" style="margin-top: 50px">
+            <a href="#">&lt;- Quay lại</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
