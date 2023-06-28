@@ -20,7 +20,7 @@ public class TKBController {
     public String tkb(Model model) {
         model.addAttribute("tkbModel", new ThoiKhoaBieu());
         model.addAttribute("listTKB", tkbRepository.findAll());
-        return "thoikhoabieu";
+        return "tkb";
     }
 
     @PostMapping("/tkb")

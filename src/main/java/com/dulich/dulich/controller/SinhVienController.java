@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,10 +29,12 @@ public class SinhVienController {
     TaiKhoanRepository taiKhoanRepository;
 
     @GetMapping("/sinhvien")
-    public String sinhVien(Model model) {
+    public String sinhVien(Model model, @CookieValue("account") String account) {
         model.addAttribute("sinhVienFormModel", new SinhVienFormModel());
         model.addAttribute("listSinhVien", sinhVienRepository.findAll());
         model.addAttribute("listLop", lopRepository.findAll());
+        model.addAttribute("ma", account);
+        //System.out.println(account);
         return "sinhvien";
     }
 

@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ThoiKhoaBieuRepository extends JpaRepository<ThoiKhoaBieu, Long> {
     Optional<ThoiKhoaBieu> findByMaTKB(String maTKB);
+    Optional<ThoiKhoaBieu> findByNienKhoaAndHocKy(String nienKhoa, int hocKy);
 }

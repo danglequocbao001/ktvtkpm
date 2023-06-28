@@ -24,12 +24,12 @@
           <div class="row">
             <i class="fas fa-user"></i>
             <input th:field="*{taiKhoan}" type="text" placeholder="Tên đăng nhập" required>
-            <p th:text="${errorTaiKhoan}"></p>
+            <p th:text="${errorTaiKhoan}" style="color: red;"></p>
           </div>
-          <div class="row">
+          <div class="row" style="margin-top: 35px;">
             <i class="fas fa-lock"></i>
             <input th:field="*{matKhau}" type="password" placeholder="Mật khẩu" required>
-            <p th:text="${errorMatKhau}"></p>
+            <p th:text="${errorMatKhau}" style="color: red;"></p>
           </div>
           <!-- <div class="pass"><a href="#">Forgot password?</a></div> -->
           <div class="row button">

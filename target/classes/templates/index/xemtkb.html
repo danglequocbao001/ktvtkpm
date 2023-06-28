@@ -171,9 +171,7 @@
                 <h3>Chi tiết thời khóa biểu</h3>
               </div>
               <form
-                th:action="@{/sinhvien}"
-                th:object="${sinhVienFormModel}"
-                method="post"
+                th:action="@{/xemtkb}"
               >
                 <div
                   class="mb-3"
@@ -198,15 +196,15 @@
                       >Niên khóa</label
                     >
                     <select
-                      th:field="*{maLop}"
+                      th:name="nienKhoa"
                       name="lop"
                       class="form-control"
-                      required
                     >
                       <option
-                        th:each="lop : ${listLop}"
-                        th:value="${lop.maLop}"
-                        th:text="${lop.maLop} + '-' + ${lop.tenLop}"
+                        th:each="nk : ${listNienKhoa}"
+                        th:value="${nk}"
+                        th:selected="${nk} == ${nienKhoa} ? true : false"
+                        th:text="${nk}"
                       ></option>
                     </select>
                   </div>
@@ -230,15 +228,15 @@
                       >Học kỳ</label
                     >
                     <select
-                      th:field="*{maLop}"
+                      th:name="hocKy"
                       name="lop"
                       class="form-control"
-                      required
                     >
                       <option
-                        th:each="lop : ${listLop}"
-                        th:value="${lop.maLop}"
-                        th:text="${lop.maLop} + '-' + ${lop.tenLop}"
+                        th:each="hk : ${listHocKy}"
+                        th:value="${hk}"
+                        th:selected="${hk} == ${hocKy} ? true : false"
+                        th:text="${hk}"
                       ></option>
                     </select>
                   </div>

@@ -206,8 +206,8 @@
                       </div>
                       <div class="modal-body" style="padding: 3rem">
                         <form
-                          th:action="@{/ctdt}"
-                          th:object="${ctdtModel}"
+                          th:action="@{/tkb}"
+                          th:object="${tkbModel}"
                           method="post"
                         >
                           <div class="mb-3">
@@ -219,7 +219,7 @@
                                 >Mã thời khóa biểu</label
                               >
                               <input
-                                th:field="*{maCTDT}"
+                                th:field="*{maTKB}"
                                 type="text"
                                 name="masv"
                                 class="form-control"
@@ -230,7 +230,7 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Niên khóa</label>
                               <input
-                                th:field="*{maCTDT}"
+                                th:field="*{nienKhoa}"
                                 type="text"
                                 name="masv"
                                 class="form-control"
@@ -241,16 +241,14 @@
                             <div style="margin-bottom: 20px">
                               <label for="" class="form-label">Học kỳ</label>
                               <select
-                                th:field="*{maLop}"
-                                name="lop"
+                                th:field="*{hocKy}"
+                                name="hocky"
                                 class="form-control"
                                 required
                               >
-                                <option
-                                  th:each="lop : ${listLop}"
-                                  th:value="${lop.maLop}"
-                                  th:text="${lop.maLop} + '-' + ${lop.tenLop}"
-                                ></option>
+                                <option value="1" selected="selected">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
                               </select>
                             </div>
                           </div>
@@ -290,12 +288,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <th:block th:each="ctdt : ${listCTDT}">
+                  <th:block th:each="tkb : ${listTKB}">
                     <tr class="row-data">
                       <!-- Modal edit student -->
                       <div
                         class="modal fade"
-                        th:attr="id= 'edit' + ${ctdt.maCTDT.trim()}"
+                        th:attr="id= 'edit' + ${tkb.maTKB.trim()}"
                         data-bs-backdrop="static"
                         data-bs-keyboard="false"
                         tabindex="-1"
@@ -318,8 +316,8 @@
                             </div>
                             <div class="modal-body" style="padding: 3rem">
                               <form
-                                th:action="@{/ctdt}"
-                                th:object="${ctdtModel}"
+                                th:action="@{/tkb/update/__${tkb.maTKB}__}"
+                                th:object="${tkbModel}"
                                 method="post"
                               >
                                 <div class="mb-3">
@@ -336,7 +334,8 @@
                                       >Mã thời khóa biểu</label
                                     >
                                     <input
-                                      th:field="*{maCTDT}"
+                                      th:name="maTKB"
+                                      th:value="${tkb.maTKB}"
                                       type="text"
                                       name="masv"
                                       class="form-control"
@@ -349,7 +348,8 @@
                                       >Niên khóa</label
                                     >
                                     <input
-                                      th:field="*{maCTDT}"
+                                      th:name="nienKhoa"
+                                      th:value="${tkb.nienKhoa}"
                                       type="text"
                                       name="masv"
                                       class="form-control"
@@ -362,16 +362,29 @@
                                       >Học kỳ</label
                                     >
                                     <select
-                                      th:field="*{maLop}"
-                                      name="lop"
+                                      th:name="hocKy"
+                                      name="hocky"
                                       class="form-control"
                                       required
                                     >
                                       <option
-                                        th:each="lop : ${listLop}"
-                                        th:value="${lop.maLop}"
-                                        th:text="${lop.maLop} + '-' + ${lop.tenLop}"
-                                      ></option>
+                                        value="1"
+                                        th:selected="${tkb.hocKy} == 1 ? true : false"
+                                      >
+                                        1
+                                      </option>
+                                      <option
+                                        value="2"
+                                        th:selected="${tkb.hocKy} == 2 ? true : false"
+                                      >
+                                        2
+                                      </option>
+                                      <option
+                                        value="3"
+                                        th:selected="${tkb.hocKy} == 3 ? true : false"
+                                      >
+                                        3
+                                      </option>
                                     </select>
                                   </div>
                                 </div>
@@ -401,13 +414,13 @@
                           </div>
                         </div>
                       </div>
-                      <td th:text="${ctdt.maCTDT}"></td>
-                      <td th:text="${ctdt.tenCTDT}"></td>
-                      <td th:text="${ctdt.soMH}"></td>
+                      <td th:text="${tkb.maTKB}"></td>
+                      <td th:text="${tkb.nienKhoa}"></td>
+                      <td th:text="${tkb.hocKy}"></td>
                       <td>
                         <input
                           data-bs-toggle="modal"
-                          th:attr="data-bs-target= '#edit' + ${ctdt.maCTDT.trim()}"
+                          th:attr="data-bs-target= '#edit' + ${tkb.maTKB.trim()}"
                           value="Sửa"
                           type="button"
                           class="btn-add"
@@ -419,21 +432,8 @@
                         />
                       </td>
                       <td>
-                        <a
-                          th:href="@{/ctdt/detail/__${ctdt.maCTDT}__}"
-                          type="button"
-                          class="btn-add"
-                          style="
-                            display: inline-block;
-                            width: 80px;
-                            height: 40px;
-                          "
-                          >Chi tiết</a
-                        >
-                      </td>
-                      <td>
                         <form
-                          th:action="@{ctdt/delete/__${ctdt.maCTDT}__}"
+                          th:action="@{tkb/delete/__${tkb.maTKB}__}"
                           method="post"
                         >
                           <input

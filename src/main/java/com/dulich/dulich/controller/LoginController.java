@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.dulich.dulich.form.LoginFormModel;
+import com.dulich.dulich.form.matKhauFormModel;
 import com.dulich.dulich.model.TaiKhoan;
 import com.dulich.dulich.repository.TaiKhoanRepository;
 
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +47,9 @@ public class LoginController {
         }
 
         String role = taiKhoan.getChucVu().trim();
+        String account = taiKhoan.getTaiKhoan().trim();
         response.addCookie(new Cookie("role", role));
+        response.addCookie(new Cookie("account", account));
         return "redirect:sinhvien";
     }
 
@@ -54,7 +58,32 @@ public class LoginController {
         Cookie cookie = new Cookie("role", null);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
+        cookie = new Cookie("account", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
         return "redirect:login";
+    }
+
+    @RequestMapping("/matkhau")
+    public String matKhau(Model model) {
+        model.addAttribute("matKhauModel", new matKhauFormModel());
+        return "matkhau";
+    }
+
+    @PostMapping("/matkhau")
+    public String doiMatKhau(@ModelAttribute("matKhauModel") matKhauFormModel matKhauModel, @CookieValue("account") String account, Model model) {
+        TaiKhoan taiKhoan = taiKhoanRepository.findByTaiKhoan(account).get();
+        if (!taiKhoan.getMatKhau().trim().equals(matKhauModel.getMatKhauCu())) {
+            model.addAttribute("errorMatKhauCu", "Mật khẩu cũ không chính xác!");
+            return "matkhau";
+        }
+        if (!matKhauModel.getMatKhauMoi().equals(matKhauModel.getMatKhauNhapLai())) {
+            model.addAttribute("errorMatKhauMoi", "Mật khẩu không trùng khớp!");
+            return "matkhau";
+        }
+        taiKhoan.setMatKhau(matKhauModel.getMatKhauMoi());
+        taiKhoanRepository.save(taiKhoan);
+        return "redirect:/";
     }
     
 }

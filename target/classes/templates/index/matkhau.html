@@ -20,43 +20,43 @@
     <div class="container">
       <div class="wrapper">
         <div class="title"><span>Đổi mật khẩu</span></div>
-        <form th:action="@{/login}" th:object="${loginModel}" method="post">
+        <form th:action="@{/matkhau}" th:object="${matKhauModel}" method="post">
           <div class="row">
             <i class="fas fa-lock"></i>
             <input
-              th:field="*{taiKhoan}"
-              type="text"
+              th:field="*{matKhauCu}"
+              type="password"
               placeholder="Mật khẩu hiện tại"
               required
             />
-            <p th:text="${errorTaiKhoan}"></p>
+            <p th:text="${errorMatKhauCu}" style="color: red;"></p>
           </div>
-          <div class="row">
+          <div class="row" style="margin-top: 35px;">
             <i class="fas fa-lock"></i>
             <input
-              th:field="*{matKhau}"
+              th:field="*{matKhauMoi}"
               type="password"
               placeholder="Mật khẩu mới"
               required
             />
-            <p th:text="${errorMatKhau}"></p>
+            <p th:text="${errorMatKhauMoi}" style="color: red;"></p>
           </div>
-          <div class="row">
+          <div class="row" style="margin-top: 35px;">
             <i class="fas fa-lock"></i>
             <input
-              th:field="*{matKhau}"
+              th:field="*{matKhauNhapLai}"
               type="password"
               placeholder="Xác nhận mật khẩu"
               required
             />
-            <p th:text="${errorMatKhau}"></p>
+            <p th:text="${errorMatKhauNhapLai}" style="color: red;"></p>
           </div>
           <!-- <div class="pass"><a href="#">Forgot password?</a></div> -->
           <div class="row button">
             <input type="submit" value="Đổi mật khẩu" />
           </div>
           <div class="signup-link" style="margin-top: 50px">
-            <a href="#">&lt;- Quay lại</a>
+            <a href="/">&lt;- Quay lại</a>
           </div>
         </form>
       </div>
