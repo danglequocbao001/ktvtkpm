@@ -614,3 +614,26 @@ u {
 .cus-cancel:hover {
   color: #999;
 }
+
+.list-btn-inactive {
+  background-color: transparent;
+  border: none;
+  margin-left: 20px;
+}
+.list-btn-active {
+  background-color: transparent;
+  border: none;
+  margin-left: 20px;
+  background-color: var(--blue);
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--light);
+}
+
+.table-component-active {
+  display: table;
+}
+
+.table-component-inactive {
+  display: none;
+}
