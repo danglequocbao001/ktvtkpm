@@ -150,3 +150,57 @@ menuBar.addEventListener("click", function () {
 //     }
 //   });
 // });
+
+const tabs = {
+  giangvien: "giangvien",
+  lop: "lop",
+};
+
+const buttonStateClass = {
+  active: "list-btn-active",
+  inactive: "list-btn-inactive",
+};
+
+const tabComponents = {
+  giangvien: "giangvienTable",
+  lop: "lopTable",
+};
+
+const tabComponentStateClass = {
+  active: "table-component-active",
+  inactive: "table-component-inactive",
+};
+
+function useEffect() {
+  document.getElementById(tabs.giangvien).className = buttonStateClass.active;
+  document.getElementById(tabs.lop).className = buttonStateClass.inactive;
+
+  document.getElementById(tabComponents.giangvien).className =
+    tabComponentStateClass.active;
+  document.getElementById(tabComponents.lop).className =
+    tabComponentStateClass.inactive;
+}
+
+function setListEmail(evt) {
+  const curDocument = evt.currentTarget;
+  if (curDocument.id === tabs.giangvien) {
+    document.getElementById(tabs.giangvien).className = buttonStateClass.active;
+    document.getElementById(tabs.lop).className = buttonStateClass.inactive;
+
+    document.getElementById(tabComponents.giangvien).className =
+      tabComponentStateClass.active;
+    document.getElementById(tabComponents.lop).className =
+      tabComponentStateClass.inactive;
+  } else {
+    document.getElementById(tabs.giangvien).className =
+      buttonStateClass.inactive;
+    document.getElementById(tabs.lop).className = buttonStateClass.active;
+
+    document.getElementById(tabComponents.giangvien).className =
+      tabComponentStateClass.inactive;
+    document.getElementById(tabComponents.lop).className =
+      tabComponentStateClass.active;
+  }
+}
+
+useEffect();
