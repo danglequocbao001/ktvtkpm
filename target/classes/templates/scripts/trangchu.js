@@ -172,13 +172,15 @@ const tabComponentStateClass = {
 };
 
 function useEffect() {
-  document.getElementById(tabs.giangvien).className = buttonStateClass.active;
-  document.getElementById(tabs.lop).className = buttonStateClass.inactive;
+  if (document.getElementById("email")) {
+    document.getElementById(tabs.giangvien).className = buttonStateClass.active;
+    document.getElementById(tabs.lop).className = buttonStateClass.inactive;
 
-  document.getElementById(tabComponents.giangvien).className =
-    tabComponentStateClass.active;
-  document.getElementById(tabComponents.lop).className =
-    tabComponentStateClass.inactive;
+    document.getElementById(tabComponents.giangvien).className =
+      tabComponentStateClass.active;
+    document.getElementById(tabComponents.lop).className =
+      tabComponentStateClass.inactive;
+  }
 }
 
 function setListEmail(evt) {
