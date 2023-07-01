@@ -21,11 +21,12 @@ public class LopController {
     LopRepository lopRepository;
 
     @GetMapping("/lop")
-    public String lop(Model model, @CookieValue("account") String account) {
+    public String lop(Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
         model.addAttribute("lopModel", new Lop());
         model.addAttribute("listLop", lopRepository.findAll());
         model.addAttribute("listKhoa", khoaRepository.findAll());
         model.addAttribute("ma", account);
+        model.addAttribute("role", role);
         return "lop";
     }
 

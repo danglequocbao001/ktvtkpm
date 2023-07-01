@@ -40,15 +40,18 @@ public class ChiTietTKB {
     @Column(name = "thu")
     private String thu;
 
+    @Id
     @Column(name = "tietbatdau")
     private int tietBatDau;
 
     @Column(name = "sotiet")
     private int soTiet;
 
+    @Id
     @Column(name = "ngaybatdau")
     private LocalDate ngayBatDau;
 
+    @Id
     @Column(name = "ngayketthuc")
     private LocalDate ngayKetThuc;
 }

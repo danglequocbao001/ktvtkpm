@@ -2,6 +2,7 @@ package com.dulich.dulich.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dulich.dulich.form.SinhVienFormModel;
 import com.dulich.dulich.model.SinhVien;
@@ -40,7 +42,7 @@ public class SinhVienController {
     }
 
     @PostMapping("/sinhvien")
-    public String themSinhVien(@ModelAttribute("sinhVienFormModel") SinhVienFormModel sinhVienFormModel, Model model) {
+    public String themSinhVien(@ModelAttribute("sinhVienFormModel") SinhVienFormModel sinhVienFormModel, Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
         String inputMaSV = sinhVienFormModel.getMaSV();
         String inputTenSV = sinhVienFormModel.getTenSV();
         String inputNgaySinh = sinhVienFormModel.getNgaySinh();
@@ -50,6 +52,24 @@ public class SinhVienController {
         String inputMaLop = sinhVienFormModel.getMaLop();
         TaiKhoan taiKhoan = new TaiKhoan();
         SinhVien sinhVien = new SinhVien();
+
+        try {
+            sinhVienRepository.findByMaSV(inputMaSV).get();
+            model.addAttribute("hasErrors", true);
+            model.addAttribute("error", "Mã sinh viên bị trùng!");
+            model.addAttribute("listSinhVien", sinhVienRepository.findAll());
+            model.addAttribute("listLop", lopRepository.findAll());
+            model.addAttribute("ma", account);
+            model.addAttribute("role", role);
+            return "sinhvien";
+        } catch(NoSuchElementException ex) {
+            
+        }
+
+        // if (sinhVienRepository.findByMaSV(inputMaSV).get() != null) {
+        //     atts.addAttribute("hasErrors", true);
+        //     return "sinhvien";
+        // }
 
         taiKhoan.setTaiKhoan(inputMaSV);
         taiKhoan.setMatKhau("1408");

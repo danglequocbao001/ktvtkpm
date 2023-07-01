@@ -21,7 +21,7 @@ public class PhongHocController {
     PhongHocRepository phongHocRepository;
 
     @GetMapping("/phonghoc")
-    public String phongHoc(Model model, @CookieValue("account") String account) {
+    public String phongHoc(Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
         List<String> listLoaiPhong = new ArrayList<>();
         listLoaiPhong.add("LT");
         listLoaiPhong.add("TH");
@@ -33,6 +33,7 @@ public class PhongHocController {
         model.addAttribute("listLoaiPhong", listLoaiPhong);
         model.addAttribute("listTrangThai", listTrangThai);
         model.addAttribute("ma", account);
+        model.addAttribute("role", role);
         return "phonghoc";
     }
 

@@ -48,7 +48,7 @@ public class ChiTietTKBController {
     SinhVienRepository sinhVienRepository;
 
     @GetMapping("/chitiettkb")
-    public String chiTietTKB(Model model, @CookieValue("account") String account) {
+    public String chiTietTKB(Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
         List<String> listThu = new ArrayList<>();
         listThu.add("2");
         listThu.add("3");
@@ -66,11 +66,13 @@ public class ChiTietTKBController {
         model.addAttribute("listThu", listThu);
         model.addAttribute("listChiTiet", chiTietTKBRepository.findAll());
         model.addAttribute("ma", account);
+        model.addAttribute("role", role);
         return "chitiettkb";
     }
 
     @PostMapping("/chitiettkb")
-    public String themChiTietTKB(@ModelAttribute("chiTietTKBModel") ChiTietTKBFormModel chiTietTKBFormModel) {
+    public String themChiTietTKB(@ModelAttribute("chiTietTKBModel") ChiTietTKBFormModel chiTietTKBFormModel, Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
+        String error = "";
         ChiTietTKB chiTietTKB = new ChiTietTKB();
         chiTietTKB.setMaTKB(chiTietTKBFormModel.getMaTKB());
         chiTietTKB.setMaLop(chiTietTKBFormModel.getMaLop());
@@ -82,15 +84,60 @@ public class ChiTietTKBController {
         chiTietTKB.setSoTiet(chiTietTKBFormModel.getSoTiet());
         chiTietTKB.setNgayBatDau(LocalDate.parse(chiTietTKBFormModel.getNgayBatDau(),  DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         chiTietTKB.setNgayKetThuc(LocalDate.parse(chiTietTKBFormModel.getNgayKetThuc(),  DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        try {
+            List<ChiTietTKB> checkGVList = chiTietTKBRepository.findByMaTKBAndMaGVAndThuAndTietBatDau(
+                chiTietTKB.getMaTKB(), chiTietTKB.getMaGV(), chiTietTKB.getThu(), chiTietTKB.getTietBatDau());
+            List<ChiTietTKB> checkLopList = chiTietTKBRepository.findByMaTKBAndMaLopAndThuAndTietBatDau(
+                chiTietTKB.getMaTKB(), chiTietTKB.getMaLop(), chiTietTKB.getThu(), chiTietTKB.getTietBatDau());
+            for (ChiTietTKB tkb : checkLopList) {
+                if (tkb.getNgayKetThuc().isAfter(chiTietTKB.getNgayKetThuc()) && tkb.getNgayBatDau().isBefore(chiTietTKB.getNgayKetThuc()))
+                    error = "Lớp " + chiTietTKB.getMaLop() + " đã bị trùng lịch, hãy thay đổi thời gian, thứ hoặc tiết bắt đầu";
+                if (tkb.getNgayKetThuc().isBefore(chiTietTKB.getNgayKetThuc()) && tkb.getNgayKetThuc().isAfter(chiTietTKB.getNgayBatDau()))
+                    error = "Lớp " + chiTietTKB.getMaLop() + " đã bị trùng lịch, hãy thay đổi thời gian, thứ hoặc tiết bắt đầu";
+            }
+            for (ChiTietTKB tkb : checkGVList) {
+                if (tkb.getNgayKetThuc().isAfter(chiTietTKB.getNgayKetThuc()) && tkb.getNgayBatDau().isBefore(chiTietTKB.getNgayKetThuc()))
+                    error = "Giảng viên " + chiTietTKB.getMaGV() + " đã bị trùng lịch, hãy thay đổi thời gian, thứ hoặc tiết bắt đầu";
+                if (tkb.getNgayKetThuc().isBefore(chiTietTKB.getNgayKetThuc()) && tkb.getNgayKetThuc().isAfter(chiTietTKB.getNgayBatDau()))
+                    error = "Giảng viên " + chiTietTKB.getMaGV() + " đã bị trùng lịch, hãy thay đổi thời gian, thứ hoặc tiết bắt đầu";
+            }
+        } catch (NoSuchElementException ex) {
+
+        }
+        if (chiTietTKB.getNgayKetThuc().isBefore(chiTietTKB.getNgayBatDau()))
+            error = "Ngày bắt đầu ko thể sớm hơn ngày kết thúc";
+        if (!error.equals("")) {
+            List<String> listThu = new ArrayList<>();
+            listThu.add("2");
+            listThu.add("3");
+            listThu.add("4");
+            listThu.add("5");
+            listThu.add("6");
+            listThu.add("7");
+            listThu.add("CN");
+            model.addAttribute("hasErrors", true);
+            model.addAttribute("error", error);
+            model.addAttribute("listTKB", tkbRepository.findAll());
+            model.addAttribute("listLop", lopRepository.findAll());
+            model.addAttribute("listMonHoc", monHocRepository.findAll());
+            model.addAttribute("listGiangVien", giangVienRepository.findAll());
+            model.addAttribute("listPhongHoc", phongHocRepository.findAll());
+            model.addAttribute("listThu", listThu);
+            model.addAttribute("listChiTiet", chiTietTKBRepository.findAll());
+            model.addAttribute("ma", account);
+            model.addAttribute("role", role);
+            return "chitiettkb";
+        }
         chiTietTKBRepository.save(chiTietTKB);
         return "redirect:chitiettkb";
     }
 
-    @PostMapping("/chitiettkb/update/{matkb}/{malop}/{mamh}/{magv}/{maphong}/{thu}")
+    @PostMapping("/chitiettkb/update/{matkb}/{malop}/{mamh}/{magv}/{maphong}/{thu}/{tietbatdau}/{ngaybatdau}/{ngayketthuc}")
     public String updateChiTietTKB(@PathVariable Map<String, String> varsMap, @ModelAttribute("chiTietTKBModel") ChiTietTKBFormModel chiTietTKBFormModel) {
-        ChiTietTKB chiTietTKB = chiTietTKBRepository.findByMaTKBAndMaLopAndMaMHAndMaGVAndMaPhongAndThu(
+        ChiTietTKB chiTietTKB = chiTietTKBRepository.findByMaTKBAndMaLopAndMaMHAndMaGVAndMaPhongAndThuAndTietBatDauAndNgayBatDauAndNgayKetThuc(
             varsMap.get("matkb"), varsMap.get("malop"), varsMap.get("mamh"), 
-            varsMap.get("magv"), Integer.parseInt(varsMap.get("maphong")), varsMap.get("thu")).get();
+            varsMap.get("magv"), Integer.parseInt(varsMap.get("maphong")), varsMap.get("thu"), Integer.parseInt(varsMap.get("tietbatdau")), 
+            LocalDate.parse(varsMap.get("ngaybatdau"),  DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(varsMap.get("ngayketthuc"),  DateTimeFormatter.ofPattern("yyyy-MM-dd"))).get();
         chiTietTKB.setTietBatDau(chiTietTKBFormModel.getTietBatDau());
         chiTietTKB.setSoTiet(chiTietTKBFormModel.getSoTiet());
         chiTietTKB.setNgayBatDau(LocalDate.parse(chiTietTKBFormModel.getNgayBatDau(),  DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -99,11 +146,12 @@ public class ChiTietTKBController {
         return "redirect:/chitiettkb";
     }
 
-    @PostMapping("/chitiettkb/delete/{matkb}/{malop}/{mamh}/{magv}/{maphong}/{thu}")
+    @PostMapping("/chitiettkb/delete/{matkb}/{malop}/{mamh}/{magv}/{maphong}/{thu}/{tietbatdau}/{ngaybatdau}/{ngayketthuc}")
     public String deleteChiTietTKB(@PathVariable Map<String, String> varsMap) {
-        ChiTietTKB chiTietTKB = chiTietTKBRepository.findByMaTKBAndMaLopAndMaMHAndMaGVAndMaPhongAndThu(
+        ChiTietTKB chiTietTKB = chiTietTKBRepository.findByMaTKBAndMaLopAndMaMHAndMaGVAndMaPhongAndThuAndTietBatDauAndNgayBatDauAndNgayKetThuc(
             varsMap.get("matkb"), varsMap.get("malop"), varsMap.get("mamh"), 
-            varsMap.get("magv"), Integer.parseInt(varsMap.get("maphong")), varsMap.get("thu")).get();
+            varsMap.get("magv"), Integer.parseInt(varsMap.get("maphong")), varsMap.get("thu"), Integer.parseInt(varsMap.get("tietbatdau")), 
+            LocalDate.parse(varsMap.get("ngaybatdau"),  DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalDate.parse(varsMap.get("ngayketthuc"),  DateTimeFormatter.ofPattern("yyyy-MM-dd"))).get();
         chiTietTKBRepository.delete(chiTietTKB);
         return "redirect:/chitiettkb";
     }
@@ -136,18 +184,21 @@ public class ChiTietTKBController {
             model.addAttribute("nienKhoa", nienKhoa);
             model.addAttribute("hocKy", hocKy);
             model.addAttribute("ma", account);
+            model.addAttribute("role", role);
             return "xemtkb";
         } catch(NullPointerException ex) {
             model.addAttribute("listChiTiet", listChiTiet);
             model.addAttribute("nienKhoa", nienKhoa);
             model.addAttribute("hocKy", hocKy);
             model.addAttribute("ma", account);
+            model.addAttribute("role", role);
             return "xemtkb";
         } catch(NoSuchElementException ex) {
             model.addAttribute("listChiTiet", listChiTiet);
             model.addAttribute("nienKhoa", nienKhoa);
             model.addAttribute("hocKy", hocKy);
             model.addAttribute("ma", account);
+            model.addAttribute("role", role);
             return "xemtkb";
         }
     }

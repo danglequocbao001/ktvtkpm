@@ -18,10 +18,11 @@ public class HocPhanController {
     HocPhanRepository hocPhanRepository;
 
     @GetMapping("/hocphan")
-    public String hocPhan(Model model, @CookieValue("account") String account) {
+    public String hocPhan(Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
         model.addAttribute("hocPhanModel", new HocPhan());
         model.addAttribute("listHocPhan", hocPhanRepository.findAll());
         model.addAttribute("ma", account);
+        model.addAttribute("role", role);
         return "hocphan";
     }
 

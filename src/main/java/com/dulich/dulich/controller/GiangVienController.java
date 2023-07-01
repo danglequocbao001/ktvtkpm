@@ -26,11 +26,12 @@ public class GiangVienController {
     TaiKhoanRepository taiKhoanRepository;
 
     @GetMapping("/giangvien")
-    public String giangVien(Model model, @CookieValue("account") String account) {
+    public String giangVien(Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
         model.addAttribute("giangVienFormModel", new GiangVienFormModel());
         model.addAttribute("listGiangVien", giangVienRepository.findAll());
         model.addAttribute("listKhoa", khoaRepository.findAll());
         model.addAttribute("ma", account);
+        model.addAttribute("role", role);
         return "giangvien";
     }
 

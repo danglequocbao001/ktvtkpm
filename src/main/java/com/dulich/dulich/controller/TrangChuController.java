@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class TrangChuController {
     @GetMapping("/")
     public String index(@CookieValue(name = "role", required = false) String role) {
-        if (role.equals(null)) return "redirect:/login";
-        if (role.equals("GV") || role.equals("SV")) return "redirect:/xemtkb";
-        if (role.equals("NVDT")) return "redirect:/lop";
-        if (role.equals("NVGV")) return "redirect:/tkb";
+        try {
+            if (role.equals("GV") || role.equals("SV")) return "redirect:/xemtkb";
+            if (role.equals("NVDT")) return "redirect:/lop";
+            if (role.equals("NVGV")) return "redirect:/tkb";
+        } catch (NullPointerException ex) {
+            return "redirect:/login";
+        }
         return "redirect:/login";
     }
 }

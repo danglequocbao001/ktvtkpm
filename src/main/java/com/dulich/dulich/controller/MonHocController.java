@@ -21,11 +21,12 @@ public class MonHocController {
     MonHocRepository monHocRepository;
 
     @GetMapping("/monhoc")
-    public String monHoc(Model model, @CookieValue("account") String account) {
+    public String monHoc(Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
         model.addAttribute("monHocModel", new MonHoc());
         model.addAttribute("listMonHoc", monHocRepository.findAll());
         model.addAttribute("listHocPhan", hocPhanRepository.findAll());
         model.addAttribute("ma", account);
+        model.addAttribute("role", role);
         return "monhoc";
     }
 

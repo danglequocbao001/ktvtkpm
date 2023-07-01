@@ -34,12 +34,13 @@ public class CTDTController {
     MonHocRepository monHocRepository;
 
     @GetMapping("/ctdt")
-    public String ctdt(Model model, @CookieValue("account") String account) {
+    public String ctdt(Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
         model.addAttribute("ctdtModel", new CTDT());
         //model.addAttribute("chiTietCTDTModel", new ChiTietCTDT());
         model.addAttribute("listCTDT", ctdtRepository.findAll());
         //model.addAttribute("listChiTietCTDT", chiTietCTDTRepository.findAll());
         model.addAttribute("ma", account);
+        model.addAttribute("role", role);
         return "CTDT";
     }
 

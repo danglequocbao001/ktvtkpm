@@ -1,5 +1,7 @@
 package com.dulich.dulich.controller;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,15 +20,28 @@ public class TKBController {
     ThoiKhoaBieuRepository tkbRepository;
 
     @GetMapping("/tkb")
-    public String tkb(Model model, @CookieValue("account") String account) {
+    public String tkb(Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
         model.addAttribute("tkbModel", new ThoiKhoaBieu());
         model.addAttribute("listTKB", tkbRepository.findAll());
         model.addAttribute("ma", account);
+        model.addAttribute("role", role);
         return "tkb";
     }
 
     @PostMapping("/tkb")
-    public String themTKB(@ModelAttribute("tkbModel") ThoiKhoaBieu tkb) {
+    public String themTKB(@ModelAttribute("tkbModel") ThoiKhoaBieu tkb, Model model, @CookieValue("account") String account, @CookieValue("role") String role) {
+        try {
+            tkbRepository.findByNienKhoaAndHocKy(tkb.getNienKhoa(), tkb.getHocKy()).get();
+            model.addAttribute("hasErrors", true);
+            model.addAttribute("error", "Học kỳ này của niên khóa đã có thời khóa biểu rồi");
+            model.addAttribute("tkbModel", new ThoiKhoaBieu());
+            model.addAttribute("listTKB", tkbRepository.findAll());
+            model.addAttribute("ma", account);
+            model.addAttribute("role", role);
+            return "tkb";
+        } catch (NoSuchElementException ex) {
+
+        }
         tkbRepository.save(tkb);
         return "redirect:tkb";
     }
